@@ -1,0 +1,91 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Plantilla;
+use Illuminate\Http\Request;
+
+class PlantillaController extends Controller
+{
+    public function index(Request $request)
+    {
+        $query = Plantilla::query();
+
+        // Filtrar por tipo
+        if ($request->filled('tipo')) {
+            $query->where('tipo', $request->tipo);
+        }
+
+        // Filtrar por estado (activa/inactiva)
+        if ($request->filled('activa')) {
+            $query->where('activa', $request->activa);
+        }
+
+        $plantillas = $query->orderBy('tipo')->orderBy('nombre')->paginate(15);
+
+        return view('admin.plantillas.index', compact('plantillas'));
+    }
+
+    public function create()
+    {
+        return view('admin.plantillas.create');
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'nombre' => 'required|string|max:100',
+            'tipo' => 'required|in:comentario,email',
+            'asunto' => 'nullable|string|max:255',
+            'contenido' => 'required|string',
+            'descripcion' => 'nullable|string',
+            'activa' => 'boolean'
+        ]);
+
+        $validated['activa'] = $request->has('activa');
+
+        Plantilla::create($validated);
+
+        return redirect()->route('admin.plantillas.index')
+            ->with('success', 'Plantilla creada exitosamente');
+    }
+
+    public function edit(Plantilla $plantilla)
+    {
+        return view('admin.plantillas.edit', compact('plantilla'));
+    }
+
+    public function update(Request $request, Plantilla $plantilla)
+    {
+        $validated = $request->validate([
+            'nombre' => 'required|string|max:100',
+            'tipo' => 'required|in:comentario,email',
+            'asunto' => 'nullable|string|max:255',
+            'contenido' => 'required|string',
+            'descripcion' => 'nullable|string',
+            'activa' => 'boolean'
+        ]);
+
+        $validated['activa'] = $request->has('activa');
+
+        $plantilla->update($validated);
+
+        return redirect()->route('admin.plantillas.index')
+            ->with('success', 'Plantilla actualizada exitosamente');
+    }
+
+    public function destroy(Plantilla $plantilla)
+    {
+        $plantilla->delete();
+
+        return redirect()->route('admin.plantillas.index')
+            ->with('success', 'Plantilla eliminada exitosamente');
+    }
+
+    // API: Obtener plantilla por ID (para usar en AJAX)
+    public function obtener(Plantilla $plantilla)
+    {
+        return response()->json($plantilla);
+    }
+}

@@ -1,0 +1,63 @@
+<?php
+
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SolicitudController;
+use Illuminate\Support\Facades\Route;
+
+// Rutas públicas
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// Solicitudes/Cotizaciones
+Route::get('/solicitud/crear', [SolicitudController::class, 'create'])->name('solicitud.create');
+Route::post('/solicitud', [SolicitudController::class, 'store'])->name('solicitud.store');
+
+// Dashboard (requiere autenticación)
+Route::get('/dashboard', function () {
+    // Redirigir admins al dashboard de admin
+    if (auth()->check() && auth()->user()->isAdmin()) {
+        return redirect()->route('admin.dashboard');
+    }
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+// Rutas protegidas con autenticación
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+// Rutas de Administración (solo para admins)
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+    
+    // Gestión de Servicios
+    Route::resource('servicios', \App\Http\Controllers\Admin\ServicioController::class);
+    
+    // Gestión de Solicitudes
+    Route::resource('solicitudes', \App\Http\Controllers\Admin\SolicitudController::class)->only(['index', 'show', 'update', 'destroy'])->parameters(['solicitudes' => 'solicitud']);
+    Route::post('solicitudes/{solicitud}/comentarios', [\App\Http\Controllers\Admin\SolicitudController::class, 'storeComment'])->name('solicitudes.comentarios.store');
+
+    // Gestión de Pagos
+    Route::resource('pagos', \App\Http\Controllers\Admin\PagoController::class)->only(['index', 'show']);
+    
+    // Gestión de Plantillas
+    Route::resource('plantillas', \App\Http\Controllers\Admin\PlantillaController::class);
+    Route::get('plantillas/{plantilla}/obtener', [\App\Http\Controllers\Admin\PlantillaController::class, 'obtener'])->name('plantillas.obtener');
+});
+
+require __DIR__.'/auth.php';
+
+// Rutas de Pago
+Route::get('/pago/checkout/{solicitud}', [\App\Http\Controllers\WebpayController::class, 'checkout'])->name('pago.checkout');
+
+// Rutas de Pago con Webpay
+Route::post('/pago/webpay/{solicitud}', [\App\Http\Controllers\WebpayController::class, 'pay'])->name('webpay.pay');
+Route::post('/pago/webpay/return', [\App\Http\Controllers\WebpayController::class, 'return'])->name('webpay.return');
+Route::get('/pago/webpay/return', [\App\Http\Controllers\WebpayController::class, 'return']);
+
+// Rutas de Pago con Flow
+Route::post('/pago/flow/{solicitud}', [\App\Http\Controllers\FlowController::class, 'pay'])->name('flow.pay');
+Route::post('/pago/flow/confirm', [\App\Http\Controllers\FlowController::class, 'confirm'])->name('flow.confirm');
+Route::get('/pago/flow/return', [\App\Http\Controllers\FlowController::class, 'return'])->name('flow.return');

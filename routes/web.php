@@ -137,10 +137,11 @@ Route::middleware('auth')->group(function () {
         if ($solicitud->usuario_id !== auth()->id()) {
             abort(403, 'No tienes permiso para ver esta solicitud');
         }
-        
+
         $solicitud->load(['servicio', 'pagos', 'comentarios.user', 'historial.user']);
-        
-        return view('cliente.solicitud-detalle', compact('solicitud'));
+        $clienteRegistrado = auth()->user();
+
+        return view('cliente.solicitud-detalle', compact('solicitud', 'clienteRegistrado'));
     })->name('cliente.solicitud.show');
 });
 

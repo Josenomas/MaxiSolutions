@@ -38,6 +38,31 @@ Route::get('/dashboard', function () {
     return view('dashboard', compact('solicitudes', 'stats'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// Cambio de contraseña obligatorio
+Route::middleware('auth')->group(function () {
+    Route::get('/cambiar-password', function() {
+        return view('cambiar-password');
+    })->name('cambiar-password');
+
+    Route::post('/cambiar-password', function(\Illuminate\Http\Request $request) {
+        $request->validate([
+            'password_actual' => 'required',
+            'password' => 'required|min:8|confirmed',
+        ]);
+
+        if (!\Hash::check($request->password_actual, auth()->user()->password)) {
+            return back()->withErrors(['password_actual' => 'La contraseña actual es incorrecta']);
+        }
+
+        auth()->user()->update([
+            'password' => \Hash::make($request->password),
+            'debe_cambiar_password' => false
+        ]);
+
+        return redirect()->route('dashboard')->with('success', 'Contraseña actualizada exitosamente');
+    })->name('cambiar-password.update');
+});
+
 // Rutas protegidas con autenticación
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -133,6 +158,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('security-logs', [\App\Http\Controllers\Admin\SecurityLogController::class, 'index'])->name('security-logs.index');
     Route::get('security-logs/{log}', [\App\Http\Controllers\Admin\SecurityLogController::class, 'show'])->name('security-logs.show');
     Route::get('plantillas/{plantilla}/obtener', [\App\Http\Controllers\Admin\PlantillaController::class, 'obtener'])->name('plantillas.obtener');
+
+    // Gestión de Usuarios
+    Route::resource('usuarios', \App\Http\Controllers\Admin\UsuariosController::class)->parameters(['usuarios' => 'usuario']);
+    Route::post('usuarios/{usuario}/reset-password', [\App\Http\Controllers\Admin\UsuariosController::class, 'resetPassword'])->name('usuarios.reset-password');
 
     // Gestión de Mensajes (Admin)
     Route::get('mensajes', function () {

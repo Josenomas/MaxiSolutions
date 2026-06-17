@@ -93,6 +93,9 @@
                     <a href="{{ route('admin.security-logs.index') }}" class="nav-link {{ request()->routeIs('admin.security-logs.*') ? 'active' : '' }}">
                         <i class="fas fa-shield-alt"></i> Logs de Seguridad
                     </a>
+                    <a href="{{ route('admin.usuarios.index') }}" class="nav-link {{ request()->routeIs('admin.usuarios.*') ? 'active' : '' }}">
+                        <i class="fas fa-users"></i> Usuarios
+                    </a>
 
                     <hr class="bg-light">
                     

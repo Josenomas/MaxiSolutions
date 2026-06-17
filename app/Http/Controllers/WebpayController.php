@@ -26,12 +26,12 @@ class WebpayController extends Controller
     public function checkout($solicitudId)
     {
         $solicitud = Solicitud::with('servicio')->findOrFail($solicitudId);
-        
-        // Verificar que la solicitud tenga un monto
-        if (!$solicitud->presupuesto_estimado) {
-            return redirect()->back()->with('error', 'Esta solicitud no tiene un monto asignado.');
+
+        // Verificar que la solicitud tenga un monto cotizado
+        if (!$solicitud->monto_cotizado) {
+            return redirect()->back()->with('error', 'Esta solicitud no tiene un monto cotizado asignado.');
         }
-        
+
         return view('pagos.checkout', compact('solicitud'));
     }
     

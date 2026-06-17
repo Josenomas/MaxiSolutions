@@ -39,7 +39,7 @@
                     <div class="mb-4">
                         <label class="form-label fw-bold">Monto a Pagar (CLP)</label>
                         <input type="number" id="monto" class="form-control form-control-lg"
-                               value="{{ old('monto', str_replace(['$', ' ', '-'], '', $solicitud->presupuesto_estimado ?? '10000')) }}"
+                               value="{{ old('monto', $solicitud->monto_cotizado ?? '10000') }}"
                                min="50" required>
                         <small class="text-muted">Monto mínimo: $50 CLP</small>
                     </div>

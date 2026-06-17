@@ -23,7 +23,8 @@ class SecurityAlertMail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: '🚨 ALERTA DE SEGURIDAD - MaxiSolutions',
+            from: 'seguridad@maxisolutions.cl',
+            subject: 'ALERTA DE SEGURIDAD - MaxiSolutions',
         );
     }
 

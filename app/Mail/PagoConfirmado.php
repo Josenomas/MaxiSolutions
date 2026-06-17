@@ -23,6 +23,7 @@ class PagoConfirmado extends Mailable
     public function envelope()
     {
         return new Envelope(
+            from: 'pagos@maxisolutions.cl',
             subject: 'Confirmacion de Pago - MaxiSolutions',
         );
     }

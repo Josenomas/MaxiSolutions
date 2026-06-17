@@ -26,6 +26,7 @@ class PagoRecibidoMail extends Mailable
     public function envelope()
     {
         return new Envelope(
+            from: 'pagos@maxisolutions.cl',
             subject: 'Pago Recibido - Solicitud #' . $this->solicitud->id,
         );
     }

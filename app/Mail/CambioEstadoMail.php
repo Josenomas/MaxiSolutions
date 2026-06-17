@@ -28,6 +28,7 @@ class CambioEstadoMail extends Mailable
     public function envelope()
     {
         return new Envelope(
+            from: 'cotizaciones@maxisolutions.cl',
             subject: 'Actualización de Estado de tu Solicitud #' . $this->solicitud->id,
         );
     }

@@ -26,6 +26,7 @@ class NuevoMensajeMail extends Mailable
     public function envelope()
     {
         return new Envelope(
+            from: 'soporte@maxisolutions.cl',
             subject: 'Nuevo Mensaje de ' . $this->remitente->name,
         );
     }

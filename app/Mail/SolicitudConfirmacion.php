@@ -23,6 +23,7 @@ class SolicitudConfirmacion extends Mailable
     public function envelope()
     {
         return new Envelope(
+            from: 'cotizaciones@maxisolutions.cl',
             subject: 'Confirmacion de Solicitud - MaxiSolutions',
         );
     }

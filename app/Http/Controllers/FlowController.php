@@ -53,8 +53,8 @@ class FlowController extends Controller
                 'currency' => 'CLP',
                 'amount' => $request->input('monto', 0),
                 'email' => $solicitud->email_cliente,
-                'urlConfirmation' => route('flow.confirm'),
-                'urlReturn' => route('flow.return'),
+                'urlConfirmation' => route('flow.confirm', [], true), // Forzar HTTPS
+                'urlReturn' => route('flow.return', [], true), // Forzar HTTPS
                 'optional' => json_encode([
                     'solicitud_id' => $solicitud->id,
                     'pago_id' => $pago->id

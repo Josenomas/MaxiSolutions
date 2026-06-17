@@ -304,5 +304,5 @@ Route::post('/pago/webpay/return', [\App\Http\Controllers\WebpayController::clas
 Route::get('/pago/webpay/return', [\App\Http\Controllers\WebpayController::class, 'return']);
 
 
-Route::post('/pago/flow/confirm', [\App\Http\Controllers\FlowController::class, 'confirm'])->name('flow.confirm');
-Route::get('/pago/flow/return', [\App\Http\Controllers\FlowController::class, 'return'])->name('flow.return');
+Route::match(['get', 'post'], '/pago/flow/confirm', [\App\Http\Controllers\FlowController::class, 'confirm'])->name('flow.confirm');
+Route::match(['get', 'post'], '/pago/flow/return', [\App\Http\Controllers\FlowController::class, 'return'])->name('flow.return');

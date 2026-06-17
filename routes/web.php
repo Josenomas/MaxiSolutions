@@ -275,24 +275,24 @@ require __DIR__.'/auth.php';
 // Rutas de Pago (requieren autenticación y ownership)
 Route::middleware('auth')->group(function () {
     Route::get('/pago/checkout/{solicitud}', function(\App\Models\Solicitud $solicitud) {
-        // FIX: Verificar ownership
-        if ($solicitud->usuario_id !== auth()->id()) {
+        // Verificar ownership: debe ser el dueño de la solicitud o admin
+        if ($solicitud->usuario_id !== auth()->id() && auth()->user()->tipo_usuario !== 'admin') {
             abort(403, 'No tienes permiso para pagar esta solicitud');
         }
         return app(\App\Http\Controllers\WebpayController::class)->checkout($solicitud->id);
     })->name('pago.checkout');
 
     Route::post('/pago/webpay/{solicitud}', function(\Illuminate\Http\Request $request, \App\Models\Solicitud $solicitud) {
-        // FIX: Verificar ownership
-        if ($solicitud->usuario_id !== auth()->id()) {
+        // Verificar ownership: debe ser el dueño de la solicitud o admin
+        if ($solicitud->usuario_id !== auth()->id() && auth()->user()->tipo_usuario !== 'admin') {
             abort(403, 'No tienes permiso para pagar esta solicitud');
         }
         return app(\App\Http\Controllers\WebpayController::class)->pay($request, $solicitud->id);
     })->name('webpay.pay');
 
     Route::post('/pago/flow/{solicitud}', function(\Illuminate\Http\Request $request, \App\Models\Solicitud $solicitud) {
-        // FIX: Verificar ownership
-        if ($solicitud->usuario_id !== auth()->id()) {
+        // Verificar ownership: debe ser el dueño de la solicitud o admin
+        if ($solicitud->usuario_id !== auth()->id() && auth()->user()->tipo_usuario !== 'admin') {
             abort(403, 'No tienes permiso para pagar esta solicitud');
         }
         return app(\App\Http\Controllers\FlowController::class)->pay($request, $solicitud->id);

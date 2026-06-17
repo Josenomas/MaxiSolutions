@@ -19,7 +19,7 @@ class SolicitudObserver
                 
                 $descripcion = match($campo) {
                     'estado' => "Estado cambiado de {$valorAnterior} a {$valorNuevo}",
-                    'monto_cotizado' => "Monto cotizado actualizado a ${$valorNuevo}",
+                    'monto_cotizado' => "Monto cotizado actualizado a $" . $valorNuevo,
                     'fecha_estimada_entrega' => "Fecha estimada de entrega actualizada",
                     'notas_admin' => "Notas administrativas actualizadas",
                     default => "Campo {$campo} actualizado"

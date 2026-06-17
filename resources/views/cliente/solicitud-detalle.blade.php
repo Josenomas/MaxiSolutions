@@ -178,10 +178,10 @@
                     <p class="text-muted mb-3">No hay pagos registrados</p>
                 @endif
 
-                <a href="{{ route('pago.checkout', $solicitud) }}" class="btn btn-success w-100" target="_blank">
-                    <i class="fas fa-plus"></i> Enviar Link de Pago
+                <a href="{{ route('pago.checkout', $solicitud) }}" class="btn btn-success w-100">
+                    <i class="fas fa-credit-card"></i> Pagar Ahora
                 </a>
-                <small class="text-muted d-block mt-2 text-center">Comparte este link con el cliente</small>
+                <small class="text-muted d-block mt-2 text-center">Paga con Webpay o Flow</small>
             </div>
         </div>
 

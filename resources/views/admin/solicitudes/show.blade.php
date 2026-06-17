@@ -153,7 +153,7 @@
 
                     <div class="mb-3">
                         <label class="form-label fw-bold">Monto Cotizado (CLP)</label>
-                        <input type="number" name="monto_cotizado" class="form-control" value="{{ $solicitud->monto_cotizado }}" min="500" step="500" placeholder="Ej: 500000">
+                        <input type="number" name="monto_cotizado" class="form-control" value="{{ $solicitud->monto_cotizado }}" min="500" step="1" placeholder="Ej: 500000">
                         <small class="text-muted">Opcional: Monto a cobrar al cliente (mínimo $500 CLP)</small>
                     </div>
 

@@ -106,17 +106,24 @@ Route::middleware('auth')->group(function () {
             'mensaje' => 'required|string|max:1000',
             'destinatario_id' => 'nullable|exists:users,id'
         ]);
-        
+
+        // Si no se especifica destinatario, asignar al primer admin
+        $destinatarioId = $request->destinatario_id;
+        if (!$destinatarioId) {
+            $admin = \App\Models\User::where('tipo_usuario', 'admin')->first();
+            $destinatarioId = $admin ? $admin->id : null;
+        }
+
         $mensaje = \App\Models\Mensaje::create([
             'usuario_id' => auth()->id(),
-            'destinatario_id' => $request->destinatario_id,
+            'destinatario_id' => $destinatarioId,
             'mensaje' => $request->mensaje,
             'es_admin' => auth()->user()->isAdmin(),
             'leido' => false
         ]);
-        
-        if ($request->destinatario_id) {
-            $destinatario = \App\Models\User::find($request->destinatario_id);
+
+        if ($destinatarioId) {
+            $destinatario = \App\Models\User::find($destinatarioId);
             if ($destinatario) {
                 Mail::to($destinatario->email)->send(new NuevoMensajeMail($mensaje));
             }

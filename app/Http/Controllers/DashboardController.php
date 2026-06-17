@@ -14,8 +14,11 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
 
-        // Obtener solicitudes del usuario por su email
-        $solicitudes = Solicitud::where('email_cliente', $user->email)
+        // Obtener solicitudes del usuario por su ID o email
+        $solicitudes = Solicitud::where(function($query) use ($user) {
+                $query->where('usuario_id', $user->id)
+                      ->orWhere('email_cliente', $user->email);
+            })
             ->with(['servicio', 'pagos', 'historial'])
             ->latest()
             ->get();
@@ -41,7 +44,8 @@ class DashboardController extends Controller
     public function showSolicitud(Solicitud $solicitud)
     {
         // Verificar que la solicitud pertenece al usuario
-        if ($solicitud->email_cliente !== Auth::user()->email) {
+        $user = Auth::user();
+        if ($solicitud->usuario_id !== $user->id && $solicitud->email_cliente !== $user->email) {
             abort(403, 'No tienes permiso para ver esta solicitud');
         }
 
@@ -61,7 +65,8 @@ class DashboardController extends Controller
     public function storeComentario(Request $request, Solicitud $solicitud)
     {
         // Verificar que la solicitud pertenece al usuario
-        if ($solicitud->email_cliente !== Auth::user()->email) {
+        $user = Auth::user();
+        if ($solicitud->usuario_id !== $user->id && $solicitud->email_cliente !== $user->email) {
             abort(403, 'No tienes permiso para comentar en esta solicitud');
         }
 

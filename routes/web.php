@@ -165,31 +165,48 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     // Gestión de Mensajes (Admin)
     Route::get('mensajes', function () {
-        $conversaciones = \App\Models\Mensaje::with(['usuario', 'destinatario'])
-            ->select('usuario_id')
-            ->selectRaw('MAX(created_at) as ultimo_mensaje')
-            ->selectRaw('COUNT(*) as total_mensajes')
-            ->selectRaw('SUM(CASE WHEN leido = 0 AND destinatario_id = ? THEN 1 ELSE 0 END) as no_leidos', [auth()->id()])
-            ->where(function($query) {
-                $query->where('destinatario_id', auth()->id())
-                      ->orWhere('usuario_id', auth()->id());
-            })
-            ->groupBy('usuario_id')
-            ->orderBy('ultimo_mensaje', 'desc')
+        // Obtener todos los mensajes donde el admin participa
+        $mensajes = \App\Models\Mensaje::where('destinatario_id', auth()->id())
+            ->orWhere('usuario_id', auth()->id())
+            ->with(['usuario', 'destinatario'])
             ->get();
 
-        $clientes = [];
-        foreach ($conversaciones as $conv) {
-            $usuario = \App\Models\User::find($conv->usuario_id);
-            if ($usuario && !$usuario->isAdmin()) {
-                $clientes[] = [
-                    'usuario' => $usuario,
-                    'ultimo_mensaje' => $conv->ultimo_mensaje,
-                    'total_mensajes' => $conv->total_mensajes,
-                    'no_leidos' => $conv->no_leidos
-                ];
+        // Agrupar por cliente
+        $clientesMap = [];
+        foreach ($mensajes as $mensaje) {
+            // Identificar quién es el cliente (el que NO es admin)
+            $clienteId = null;
+            if ($mensaje->usuario_id === auth()->id()) {
+                // El admin envió el mensaje, el cliente es el destinatario
+                $clienteId = $mensaje->destinatario_id;
+            } else {
+                // El cliente envió el mensaje
+                $clienteId = $mensaje->usuario_id;
+            }
+
+            if (!isset($clientesMap[$clienteId])) {
+                $usuario = \App\Models\User::find($clienteId);
+                if ($usuario && !$usuario->isAdmin()) {
+                    $clientesMap[$clienteId] = [
+                        'usuario' => $usuario,
+                        'ultimo_mensaje' => $mensaje->created_at,
+                        'total_mensajes' => 1,
+                        'no_leidos' => ($mensaje->destinatario_id === auth()->id() && !$mensaje->leido) ? 1 : 0
+                    ];
+                }
+            } else {
+                $clientesMap[$clienteId]['total_mensajes']++;
+                if ($mensaje->created_at > $clientesMap[$clienteId]['ultimo_mensaje']) {
+                    $clientesMap[$clienteId]['ultimo_mensaje'] = $mensaje->created_at;
+                }
+                if ($mensaje->destinatario_id === auth()->id() && !$mensaje->leido) {
+                    $clientesMap[$clienteId]['no_leidos']++;
+                }
             }
         }
+
+        // Ordenar por último mensaje
+        $clientes = collect($clientesMap)->sortByDesc('ultimo_mensaje')->values()->all();
 
         return view('admin.mensajes.index', compact('clientes'));
     })->name('mensajes.index');

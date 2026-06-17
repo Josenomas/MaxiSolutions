@@ -14,5 +14,6 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         '/pago/webpay/return',
         '/pago/flow/confirm',
+        '/pago/flow/return',
     ];
 }

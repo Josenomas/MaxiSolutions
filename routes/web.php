@@ -10,6 +10,23 @@ use App\Mail\NuevoMensajeMail;
 use App\Mail\CambioEstadoMail;
 use App\Mail\PagoRecibidoMail;
 
+// ========================================
+// RUTAS SUBDOMINIO PAES
+// ========================================
+Route::domain('paes.maxisolutions.cl')->group(function () {
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/', [\App\Http\Controllers\Paes\PaesController::class, 'dashboard'])->name('paes.dashboard');
+        Route::get('/practica', [\App\Http\Controllers\Paes\PaesController::class, 'practica'])->name('paes.practica');
+        Route::get('/simulador', [\App\Http\Controllers\Paes\PaesController::class, 'simulador'])->name('paes.simulador');
+        Route::get('/estadisticas', [\App\Http\Controllers\Paes\PaesController::class, 'estadisticas'])->name('paes.estadisticas');
+    });
+
+    // Si no está autenticado, redirigir a login del sitio principal
+    Route::get('/login', function () {
+        return redirect('https://maxisolutions.cl/login');
+    });
+});
+
 // Rutas públicas
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -340,20 +357,3 @@ Route::match(['get', 'post'], '/pago/flow/return', [\App\Http\Controllers\FlowCo
 // Boleta Electrónica
 Route::get('/pago/boleta/{pago}', [\App\Http\Controllers\BoletaController::class, 'generarBoleta'])->middleware('auth')->name('pago.boleta');
 Route::get('/boleta/{pago}', [\App\Http\Controllers\BoletaController::class, 'generarBoletaPublica'])->name('pago.boleta.public');
-
-// ========================================
-// RUTAS SUBDOMINIO PAES
-// ========================================
-Route::domain('paes.maxisolutions.cl')->group(function () {
-    Route::middleware(['auth'])->group(function () {
-        Route::get('/', [\App\Http\Controllers\Paes\PaesController::class, 'dashboard'])->name('paes.dashboard');
-        Route::get('/practica', [\App\Http\Controllers\Paes\PaesController::class, 'practica'])->name('paes.practica');
-        Route::get('/simulador', [\App\Http\Controllers\Paes\PaesController::class, 'simulador'])->name('paes.simulador');
-        Route::get('/estadisticas', [\App\Http\Controllers\Paes\PaesController::class, 'estadisticas'])->name('paes.estadisticas');
-    });
-
-    // Si no está autenticado, redirigir a login del sitio principal
-    Route::get('/login', function () {
-        return redirect('https://maxisolutions.cl/login');
-    });
-});

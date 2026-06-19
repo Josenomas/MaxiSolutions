@@ -132,8 +132,9 @@ class WebpayController extends Controller
             if ($pago->solicitud->usuario) {
                 Mail::to($pago->solicitud->usuario->email)->send(new PagoRecibidoMail($pago));
             }
-            
-            return view('pagos.success', compact('pago'));
+
+            $solicitud = $pago->solicitud;
+            return view('pagos.success', compact('pago', 'solicitud'));
         } else {
             $pago->update(['estado' => 'fallido']);
             

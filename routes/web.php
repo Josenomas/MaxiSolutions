@@ -306,3 +306,6 @@ Route::get('/pago/webpay/return', [\App\Http\Controllers\WebpayController::class
 
 Route::match(['get', 'post'], '/pago/flow/confirm', [\App\Http\Controllers\FlowController::class, 'confirm'])->name('flow.confirm');
 Route::match(['get', 'post'], '/pago/flow/return', [\App\Http\Controllers\FlowController::class, 'return'])->name('flow.return');
+
+// Boleta Electrónica
+Route::get('/pago/boleta/{pago}', [\App\Http\Controllers\BoletaController::class, 'generarBoleta'])->middleware('auth')->name('pago.boleta');

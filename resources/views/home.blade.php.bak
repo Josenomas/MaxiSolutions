@@ -95,59 +95,46 @@
   </div>
 </section>
 
-<!-- ======================== PRODUCTOS SAAS ======================== -->
-<section id="portafolio" class="ms-section" style="background:var(--ms-bg-alt)" data-screen-label="Productos">
+<!-- =========================== PORTAFOLIO =========================== -->
+<section id="portafolio" class="ms-section" style="background:var(--ms-bg-alt)" data-screen-label="Portafolio">
   <div class="container">
     <div class="text-center mb-5 reveal">
-      <span class="ms-eyebrow">Plataformas SaaS</span>
-      <h2 class="mt-2 mb-3">Nuestros <span class="ms-grad-text">productos</span></h2>
-      <p class="sub">Soluciones digitales listas para usar. Accede a potentes plataformas diseñadas para tu crecimiento.</p>
+      <span class="ms-eyebrow">Nuestro trabajo</span>
+      <h2 class="mt-2 mb-3">Portafolio de <span class="ms-grad-text">proyectos</span></h2>
+      <p class="sub">Una muestra de las soluciones que hemos construido para nuestros clientes.</p>
     </div>
-    <div class="row g-4 justify-content-center">
-      @forelse($productos as $producto)
+    <div class="row g-4">
+      @forelse($portafolio as $proyecto)
         <div class="col-12 col-sm-6 col-md-4 reveal">
-          <a href="{{ $producto->url_base }}" target="_blank" class="text-decoration-none">
-            <div class="ms-card h-100 hover-lift" style="cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;">
-              <div class="ms-ico" style="font-size: 3rem;">
-                <i class="fas {{ $producto->icono }}"></i>
-              </div>
-              <h5>{{ $producto->nombre }}</h5>
-              <p class="desc">{{ $producto->descripcion }}</p>
-
-              @if($producto->planes->count() > 0)
-                <div class="mt-3">
-                  @php
-                    $planMinimo = $producto->planes->where('precio_mensual', '>', 0)->sortBy('precio_mensual')->first();
-                  @endphp
-                  @if($planMinimo)
-                    <p class="ms-price ms-grad-text mb-1">${{ number_format($planMinimo->precio_mensual, 0, ',', '.') }} <span>/ mes</span></p>
-                  @else
-                    <p class="ms-price ms-grad-text mb-1">Gratis <span>para empezar</span></p>
-                  @endif
-                </div>
+          <div class="ms-proj">
+            <div class="ms-thumb {{ !$proyecto->imagen ? 'ph' : '' }}">
+              @if($proyecto->imagen)
+                <img src="{{ asset('storage/' . $proyecto->imagen) }}" alt="{{ $proyecto->nombre }}">
+              @else
+                <span>{{ $proyecto->nombre }}</span>
               @endif
-
-              <div class="mt-3">
-                <span class="ms-link">Acceder <i class="fas fa-arrow-right"></i></span>
+              <div class="overlay">
+                <div class="ms-tags">
+                  @foreach(explode(',', $proyecto->tecnologias) as $tech)
+                    <span class="ms-tag">{{ trim($tech) }}</span>
+                  @endforeach
+                </div>
               </div>
             </div>
-          </a>
+            <div class="body">
+              <h5>{{ $proyecto->nombre }}</h5>
+              <p>{{ $proyecto->descripcion }}</p>
+            </div>
+          </div>
         </div>
       @empty
         <div class="col-12 text-center py-5">
-          <p class="text-muted">Próximamente nuevos productos SaaS...</p>
+          <p class="text-muted">No hay proyectos en el portafolio aún.</p>
         </div>
       @endforelse
     </div>
   </div>
 </section>
-
-<style>
-.hover-lift:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 40px rgba(102, 126, 234, 0.3) !important;
-}
-</style>
 
 <!-- =============================== CTA =============================== -->
 <section class="ms-section pt-0">

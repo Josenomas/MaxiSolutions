@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SolicitudController;
+use App\Http\Controllers\ProductoController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NuevoMensajeMail;
@@ -11,6 +12,10 @@ use App\Mail\PagoRecibidoMail;
 
 // Rutas públicas
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// Productos SaaS
+Route::get('/productos', [ProductoController::class, 'index'])->name('productos.index');
+Route::get('/producto/{slug}', [ProductoController::class, 'acceder'])->name('producto.acceder');
 
 // Solicitudes/Cotizaciones
 Route::get('/solicitud/crear', [SolicitudController::class, 'create'])->name('solicitud.create');

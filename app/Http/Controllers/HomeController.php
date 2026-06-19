@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Servicio;
 use App\Models\Portafolio;
+use App\Models\Producto;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,12 +15,12 @@ class HomeController extends Controller
             ->orderBy('destacado', 'desc')
             ->get();
 
-        $portafolio = Portafolio::where('estado', 'activo')
-            ->where('destacado', true)
-            ->latest()
-            ->take(6)
+        // Obtener productos SaaS activos en lugar de portafolio tradicional
+        $productos = Producto::where('activo', true)
+            ->with('planes')
+            ->orderBy('orden')
             ->get();
 
-        return view('home', compact('servicios', 'portafolio'));
+        return view('home', compact('servicios', 'productos'));
     }
 }

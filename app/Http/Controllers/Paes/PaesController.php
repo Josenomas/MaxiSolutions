@@ -43,9 +43,9 @@ class PaesController extends Controller
             $progreso = $materia->progresoUsuario($user->id);
             $progresoMaterias[$materia->id] = [
                 'nombre' => $materia->nombre,
-                'total_preguntas' => $progreso->sum('preguntas_realizadas') ?? 0,
-                'porcentaje_acierto' => $progreso->avg('porcentaje_acierto') ?? 0,
-                'racha_actual' => $progreso->max('racha_actual') ?? 0,
+                'total_preguntas' => $progreso ? $progreso->sum('preguntas_realizadas') : 0,
+                'porcentaje_acierto' => $progreso ? $progreso->avg('porcentaje_acierto') : 0,
+                'racha_actual' => $progreso ? $progreso->max('racha_actual') : 0,
             ];
         }
 

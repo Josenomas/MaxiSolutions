@@ -309,3 +309,4 @@ Route::match(['get', 'post'], '/pago/flow/return', [\App\Http\Controllers\FlowCo
 
 // Boleta Electrónica
 Route::get('/pago/boleta/{pago}', [\App\Http\Controllers\BoletaController::class, 'generarBoleta'])->middleware('auth')->name('pago.boleta');
+Route::get('/boleta/{pago}', [\App\Http\Controllers\BoletaController::class, 'generarBoletaPublica'])->name('pago.boleta.public');

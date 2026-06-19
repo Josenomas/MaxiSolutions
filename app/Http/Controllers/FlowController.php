@@ -47,15 +47,18 @@ class FlowController extends Controller
             SecurityLog::logPaymentAttempt(auth()->id(), $solicitud->id, 'flow', $request->input('monto', 0));
 
             // Preparar parámetros para Flow
+            // IMPORTANTE: Forzar HTTPS y dominio correcto sin www
+            $baseUrl = 'https://maxisolutions.cl';
+
             $params = [
                 'commerceOrder' => $buyOrder,
                 'subject' => 'Pago Solicitud #' . $solicitud->id . ' - MaxiSolutions',
                 'currency' => 'CLP',
                 'amount' => $request->input('monto', 0),
                 'email' => $solicitud->email_cliente,
-                'urlConfirmation' => route('flow.confirm', [], true), // Forzar HTTPS
-                'urlReturn' => url('/pago/flow/debug'), // TEMPORAL: URL de debug
-                //'urlReturn' => route('flow.return', [], true), // Forzar HTTPS
+                'urlConfirmation' => $baseUrl . '/pago/flow/confirm',
+                'urlReturn' => $baseUrl . '/pago/flow/debug', // TEMPORAL: URL de debug
+                //'urlReturn' => $baseUrl . '/pago/flow/return',
                 'optional' => json_encode([
                     'solicitud_id' => $solicitud->id,
                     'pago_id' => $pago->id

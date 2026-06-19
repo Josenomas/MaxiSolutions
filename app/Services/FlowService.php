@@ -122,7 +122,7 @@ class FlowService
         curl_close($ch);
 
         if ($httpCode !== 200) {
-            throw new Exception("Error HTTP {$httpCode} de Flow");
+            throw new Exception("Error HTTP {$httpCode} de Flow. Respuesta: {$response}");
         }
 
         $data = json_decode($response, true);

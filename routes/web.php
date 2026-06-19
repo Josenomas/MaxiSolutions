@@ -314,6 +314,21 @@ Route::match(['get', 'post'], '/flow-test', function(\Illuminate\Http\Request $r
     return response('OK', 200);
 });
 
+// Debug completo de Flow
+Route::any('/pago/flow/debug', function(\Illuminate\Http\Request $request) {
+    \Illuminate\Support\Facades\Log::info('=== FLOW DEBUG COMPLETO ===', [
+        'method' => $request->method(),
+        'url_completa' => $request->fullUrl(),
+        'path' => $request->path(),
+        'query_string' => $request->getQueryString(),
+        'query_params' => $request->query(),
+        'post_params' => $request->post(),
+        'all_input' => $request->all(),
+        'headers' => $request->headers->all(),
+    ]);
+    return response('DEBUG OK - Token recibido: ' . ($request->input('token') ?? 'NO RECIBIDO'), 200);
+});
+
 Route::match(['get', 'post'], '/pago/flow/confirm', [\App\Http\Controllers\FlowController::class, 'confirm'])->name('flow.confirm');
 Route::match(['get', 'post'], '/pago/flow/return', [\App\Http\Controllers\FlowController::class, 'return'])->name('flow.return');
 

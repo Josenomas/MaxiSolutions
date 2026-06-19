@@ -90,8 +90,12 @@ class FlowController extends Controller
                     'token' => $response['token']
                 ]);
 
-                // Obtener URL de pago
-                $paymentUrl = $this->flowService->getPaymentUrl($response['token']);
+                // Usar la URL que Flow nos devuelve + el token
+                $paymentUrl = $response['url'] . '?token=' . $response['token'];
+
+                Log::info('URL de redirección a Flow', [
+                    'paymentUrl' => $paymentUrl
+                ]);
 
                 // Redirigir a Flow
                 return view('pagos.redirect-flow', [

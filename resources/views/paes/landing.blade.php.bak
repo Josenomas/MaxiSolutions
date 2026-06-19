@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'PAES Prep - Alcanza tu máximo puntaje en la PAES')
+@section('title', 'MaxiSolutions - Soluciones Tecnológicas a tu Medida')
 
 @section('content')
 
@@ -12,17 +12,17 @@
   <div class="container">
     <div class="row align-items-center g-5">
       <div class="col-lg-6">
-        <span class="ms-eyebrow reveal">Preparación universitaria</span>
-        <h1 class="my-3 reveal">Alcanza tu <span class="ms-grad-text">máximo puntaje</span> en la PAES</h1>
-        <p class="lead mb-4 reveal">Plataforma inteligente con IA generativa, tutor virtual y miles de preguntas adaptativas. Prepárate de forma personalizada para tu examen de admisión universitaria.</p>
+        <span class="ms-eyebrow reveal">Software a tu medida</span>
+        <h1 class="my-3 reveal">Soluciones tecnológicas que <span class="ms-grad-text">impulsan tu negocio</span></h1>
+        <p class="lead mb-4 reveal">Desarrollo web personalizado, capacitaciones especializadas y consultoría en sistemas. Transformamos tus ideas en realidad.</p>
         <div class="d-flex flex-wrap gap-3 mb-4 reveal">
-          <a href="#planes" class="ms-btn ms-btn-primary"><i class="fas fa-rocket"></i> Ver planes</a>
-          <a href="{{ route('paes.dashboard') }}" class="ms-btn ms-btn-ghost"><i class="fas fa-graduation-cap"></i> Comenzar gratis</a>
+          <a href="#servicios" class="ms-btn ms-btn-primary"><i class="fas fa-rocket"></i> Ver servicios</a>
+          <a href="{{ route('solicitud.create') }}" class="ms-btn ms-btn-ghost"><i class="fas fa-envelope"></i> Cotizar proyecto</a>
         </div>
         <div class="d-flex flex-wrap gap-2 reveal">
-          <span class="ms-chip"><i class="fas fa-brain"></i> IA Generativa</span>
-          <span class="ms-chip"><i class="fas fa-comments"></i> Tutor Virtual</span>
-          <span class="ms-chip"><i class="fas fa-chart-line"></i> Análisis Personalizado</span>
+          <span class="ms-chip"><i class="fas fa-check-circle"></i> Código a medida</span>
+          <span class="ms-chip"><i class="fas fa-shield-halved"></i> Seguro y escalable</span>
+          <span class="ms-chip"><i class="fas fa-headset"></i> Soporte continuo</span>
         </div>
       </div>
       <div class="col-lg-6">
@@ -31,14 +31,14 @@
             <span class="dot" style="background:#ff5f56"></span>
             <span class="dot" style="background:#ffbd2e"></span>
             <span class="dot" style="background:#27c93f"></span>
-            <small>paes-prep · simulador.php</small>
+            <small>maxisolutions · app.php</small>
           </div>
           <div class="ms-code">
-            <span class="ln"><span class="c-key">class</span> <span class="c-fn">EstudiantePAES</span> {</span>
-            <span class="ln">&nbsp;&nbsp;<span class="c-key">public function</span> <span class="c-fn">entrenar</span>() {</span>
-            <span class="ln">&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-key">return</span> <span class="c-var">$this</span></span>
-            <span class="ln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-><span class="c-fn">practicar</span>(<span class="c-str">'preguntas IA'</span>)</span>
-            <span class="ln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-><span class="c-fn">alcanzarMeta</span>(); <span class="c-mut">// 🎓</span></span>
+            <span class="ln"><span class="c-key">class</span> <span class="c-fn">MaxiSolutions</span> {</span>
+            <span class="ln">&nbsp;&nbsp;<span class="c-key">public function</span> <span class="c-fn">build</span>(<span class="c-var">$idea</span>) {</span>
+            <span class="ln">&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-key">return</span> <span class="c-var">$idea</span></span>
+            <span class="ln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-><span class="c-fn">diseño</span>(<span class="c-str">'a medida'</span>)</span>
+            <span class="ln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-><span class="c-fn">desplegar</span>(); <span class="c-mut">// 🚀</span></span>
             <span class="ln">&nbsp;&nbsp;}</span>
           </div>
         </div>
@@ -52,10 +52,10 @@
   <div class="container">
     <div class="ms-stats reveal">
       <div class="row text-center g-0">
-        <div class="col-6 col-md-3 ms-stat py-4"><div class="num ms-grad-text" data-count="10000">0</div><div class="lbl">Preguntas disponibles</div></div>
-        <div class="col-6 col-md-3 ms-stat py-4"><div class="num ms-grad-text" data-count="4">0</div><div class="lbl">Materias PAES</div></div>
-        <div class="col-6 col-md-3 ms-stat py-4"><div class="num ms-grad-text" data-count="21">0</div><div class="lbl">Temas cubiertos</div></div>
-        <div class="col-6 col-md-3 ms-stat py-4"><div class="num ms-grad-text" data-count="24" data-suffix="/7">0</div><div class="lbl">Acceso disponible</div></div>
+        <div class="col-6 col-md-3 ms-stat py-4"><div class="num ms-grad-text" data-count="80">0</div><div class="lbl">Proyectos entregados</div></div>
+        <div class="col-6 col-md-3 ms-stat py-4"><div class="num ms-grad-text" data-count="60">0</div><div class="lbl">Clientes satisfechos</div></div>
+        <div class="col-6 col-md-3 ms-stat py-4"><div class="num ms-grad-text" data-count="8">0</div><div class="lbl">Años de experiencia</div></div>
+        <div class="col-6 col-md-3 ms-stat py-4"><div class="num ms-grad-text" data-count="24" data-suffix="/7">0</div><div class="lbl">Soporte disponible</div></div>
       </div>
     </div>
   </div>
@@ -156,9 +156,9 @@
       <div class="aurora x"></div>
       <div class="aurora y"></div>
       <div class="ms-cta-inner mx-auto" style="max-width:640px">
-        <h2 class="mb-3">¿Listo para alcanzar tu máximo puntaje?</h2>
-        <p class="lead mb-4" style="color:rgba(255,255,255,.78)">Comienza gratis hoy y descubre cómo la IA puede transformar tu preparación para la PAES.</p>
-        <a href="{{ route('paes.dashboard') }}" class="ms-btn ms-btn-primary btn-lg"><i class="fas fa-graduation-cap"></i> Comenzar ahora gratis</a>
+        <h2 class="mb-3">¿Listo para empezar tu proyecto?</h2>
+        <p class="lead mb-4" style="color:rgba(255,255,255,.78)">Cuéntanos tu idea y recibe una cotización personalizada sin compromiso.</p>
+        <a href="{{ route('solicitud.create') }}" class="ms-btn ms-btn-primary btn-lg"><i class="fas fa-paper-plane"></i> Solicitar cotización</a>
       </div>
     </div>
   </div>
@@ -210,5 +210,16 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 
-
+@php
+function getCategoriaIcon($categoria) {
+    $iconos = [
+        'desarrollo_web' => 'fa-laptop-code',
+        'capacitacion' => 'fa-chalkboard-teacher',
+        'consultoria' => 'fa-handshake',
+        'mantenimiento' => 'fa-tools',
+        'otro' => 'fa-cogs'
+    ];
+    return $iconos[$categoria] ?? 'fa-cogs';
+}
+@endphp
 @endsection

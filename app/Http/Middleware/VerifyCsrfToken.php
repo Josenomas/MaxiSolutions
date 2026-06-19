@@ -15,5 +15,7 @@ class VerifyCsrfToken extends Middleware
         '/pago/webpay/return',
         '/pago/flow/confirm',
         '/pago/flow/return',
+        '/flow-test',
+        'pago/flow/*',  // Wildcard para todas las rutas de Flow
     ];
 }

@@ -14,14 +14,20 @@ use App\Mail\PagoRecibidoMail;
 // RUTAS SUBDOMINIO PAES
 // ========================================
 Route::domain('paes.maxisolutions.cl')->group(function () {
-    Route::middleware(['auth'])->group(function () {
+    // Landing page pública
+    Route::get('/', function () {
+        return view('paes.landing');
+    })->name('paes.home');
+
+    // Rutas autenticadas (dashboard en /app)
+    Route::middleware(['auth:paes'])->prefix('app')->group(function () {
         Route::get('/', [\App\Http\Controllers\Paes\PaesController::class, 'dashboard'])->name('paes.dashboard');
         Route::get('/practica', [\App\Http\Controllers\Paes\PaesController::class, 'practica'])->name('paes.practica');
         Route::get('/simulador', [\App\Http\Controllers\Paes\PaesController::class, 'simulador'])->name('paes.simulador');
         Route::get('/estadisticas', [\App\Http\Controllers\Paes\PaesController::class, 'estadisticas'])->name('paes.estadisticas');
     });
 
-    // Si no está autenticado, redirigir a login del sitio principal
+    // Auth PAES (TODO: implementar login/register)
     Route::get('/login', function () {
         return redirect('https://maxisolutions.cl/login');
     });

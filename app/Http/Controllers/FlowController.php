@@ -64,11 +64,21 @@ class FlowController extends Controller
             // Crear pago en Flow
             $response = $this->flowService->createPayment($params);
 
+            Log::info('Respuesta de Flow al crear pago', [
+                'response' => $response,
+                'pago_id' => $pago->id
+            ]);
+
             if (isset($response['token']) && isset($response['url'])) {
                 // Guardar token
                 $pago->update([
                     'token' => $response['token'],
                     'response_data' => $response
+                ]);
+
+                Log::info('Token guardado en base de datos', [
+                    'pago_id' => $pago->id,
+                    'token' => $response['token']
                 ]);
 
                 // Obtener URL de pago
@@ -80,7 +90,8 @@ class FlowController extends Controller
                     'token' => $response['token']
                 ]);
             } else {
-                throw new \Exception('Error al crear el pago en Flow');
+                Log::error('Flow no devolvió token o URL', ['response' => $response]);
+                throw new \Exception('Error al crear el pago en Flow: ' . json_encode($response));
             }
 
         } catch (\Exception $e) {
@@ -98,16 +109,26 @@ class FlowController extends Controller
     public function confirm(Request $request)
     {
         try {
+            Log::info('Flow confirm llamado', [
+                'all_params' => $request->all(),
+            ]);
+
             // Verificar firma
             if (!$this->flowService->verifySignature($request->all())) {
-                Log::error('Firma inválida en callback de Flow');
+                Log::error('Firma inválida en callback de Flow', [
+                    'params' => $request->all()
+                ]);
                 return response('Firma inválida', 401);
             }
 
-            $token = $request->input('token');
+            $token = $request->input('token') ?? $request->query('token');
+
+            Log::info('Token recibido en confirm', ['token' => $token]);
 
             // Obtener estado del pago
             $paymentStatus = $this->flowService->confirmPayment($token);
+
+            Log::info('Estado de pago Flow', ['status' => $paymentStatus]);
 
             // Buscar el pago
             $pago = Pago::where('token', $token)->firstOrFail();
@@ -156,9 +177,19 @@ class FlowController extends Controller
     public function return(Request $request)
     {
         try {
-            $token = $request->input('token');
+            // Intentar obtener token de GET o POST
+            $token = $request->input('token') ?? $request->query('token');
+
+            Log::info('Flow return llamado', [
+                'token' => $token,
+                'all_params' => $request->all(),
+                'query' => $request->query(),
+            ]);
 
             if (!$token) {
+                Log::error('Token no recibido en Flow return', [
+                    'all_data' => $request->all()
+                ]);
                 return redirect()
                     ->route('home')
                     ->with('error', 'Token de pago no válido');

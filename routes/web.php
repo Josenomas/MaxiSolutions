@@ -157,7 +157,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::post('solicitudes/{solicitud}/comentarios', [\App\Http\Controllers\Admin\SolicitudController::class, 'storeComment'])->name('solicitudes.comentarios.store');
 
     // Gestión de Pagos
-    Route::resource('pagos', \App\Http\Controllers\Admin\PagoController::class)->only(['index', 'show']);
+    Route::resource('pagos', \App\Http\Controllers\Admin\PagoController::class)->only(['index', 'show', 'destroy']);
     
     // Gestión de Plantillas
     Route::resource('plantillas', \App\Http\Controllers\Admin\PlantillaController::class);

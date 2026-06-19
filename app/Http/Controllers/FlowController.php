@@ -54,12 +54,18 @@ class FlowController extends Controller
                 'amount' => $request->input('monto', 0),
                 'email' => $solicitud->email_cliente,
                 'urlConfirmation' => route('flow.confirm', [], true), // Forzar HTTPS
-                'urlReturn' => route('flow.return', [], true), // Forzar HTTPS
+                'urlReturn' => url('/pago/flow/debug'), // TEMPORAL: URL de debug
+                //'urlReturn' => route('flow.return', [], true), // Forzar HTTPS
                 'optional' => json_encode([
                     'solicitud_id' => $solicitud->id,
                     'pago_id' => $pago->id
                 ])
             ];
+
+            Log::info('URLs enviadas a Flow', [
+                'urlConfirmation' => $params['urlConfirmation'],
+                'urlReturn' => $params['urlReturn']
+            ]);
 
             // Crear pago en Flow
             $response = $this->flowService->createPayment($params);

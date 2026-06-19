@@ -52,7 +52,18 @@
                             <td>@if($pago->metodo_pago == 'webpay')<span class="badge bg-primary"><i class="fas fa-credit-card"></i> WEBPAY</span>@else<span class="badge bg-success"><i class="fas fa-wallet"></i> FLOW</span>@endif</td>
                             <td>@php $badgeColors = ['pendiente' => 'warning', 'aprobado' => 'success', 'rechazado' => 'danger', 'anulado' => 'secondary']; @endphp<span class="badge bg-{{ $badgeColors[$pago->estado] ?? 'secondary' }}">{{ ucfirst($pago->estado) }}</span></td>
                             <td>{{ $pago->created_at->format('d/m/Y H:i') }}</td>
-                            <td><a href="{{ route('admin.pagos.show', $pago) }}" class="btn btn-sm btn-info"><i class="fas fa-eye"></i></a></td>
+                            <td>
+                                <a href="{{ route('admin.pagos.show', $pago) }}" class="btn btn-sm btn-info" title="Ver detalles">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <form action="{{ route('admin.pagos.destroy', $pago) }}" method="POST" class="d-inline" onsubmit="return confirm('¿Estás seguro de eliminar este pago? Esta acción no se puede deshacer.');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger" title="Eliminar pago">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                     @empty
                         <tr><td colspan="8" class="text-center text-muted py-4">No hay pagos registrados</td></tr>

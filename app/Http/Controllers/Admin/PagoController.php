@@ -38,4 +38,23 @@ class PagoController extends Controller
         $pago->load(['solicitud', 'usuario']);
         return view('admin.pagos.show', compact('pago'));
     }
+
+    /**
+     * Eliminar un pago
+     */
+    public function destroy(Pago $pago)
+    {
+        try {
+            $pagoId = $pago->id;
+            $pago->delete();
+
+            return redirect()
+                ->route('admin.pagos.index')
+                ->with('success', "Pago #{$pagoId} eliminado exitosamente");
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('admin.pagos.index')
+                ->with('error', 'Error al eliminar el pago: ' . $e->getMessage());
+        }
+    }
 }

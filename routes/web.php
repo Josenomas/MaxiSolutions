@@ -15,9 +15,7 @@ use App\Mail\PagoRecibidoMail;
 // ========================================
 Route::domain('paes.maxisolutions.cl')->group(function () {
     // Landing page pública
-    Route::get('/', function () {
-        return view('paes.landing');
-    })->name('paes.home');
+    Route::get('/', [\App\Http\Controllers\Paes\PaesHomeController::class, 'landing'])->name('paes.home');
 
     // Rutas autenticadas (dashboard en /app)
     Route::middleware(['auth:paes'])->prefix('app')->group(function () {

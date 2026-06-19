@@ -304,6 +304,16 @@ Route::post('/pago/webpay/return', [\App\Http\Controllers\WebpayController::clas
 Route::get('/pago/webpay/return', [\App\Http\Controllers\WebpayController::class, 'return']);
 
 
+// Ruta de prueba para Flow (sin middleware, sin nada)
+Route::match(['get', 'post'], '/flow-test', function(\Illuminate\Http\Request $request) {
+    \Illuminate\Support\Facades\Log::info('Flow test endpoint llamado', [
+        'method' => $request->method(),
+        'all' => $request->all(),
+        'headers' => $request->headers->all()
+    ]);
+    return response('OK', 200);
+});
+
 Route::match(['get', 'post'], '/pago/flow/confirm', [\App\Http\Controllers\FlowController::class, 'confirm'])->name('flow.confirm');
 Route::match(['get', 'post'], '/pago/flow/return', [\App\Http\Controllers\FlowController::class, 'return'])->name('flow.return');
 

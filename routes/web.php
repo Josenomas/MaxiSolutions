@@ -35,10 +35,12 @@ Route::domain('paes.maxisolutions.cl')->group(function () {
         Route::get('/materias/{materiaId}/temas', [PreguntaController::class, 'obtenerTemasPorMateria'])->name('paes.api.materias.temas');
     });
 
-        // Auth PAES (TODO: implementar login/register)
-    Route::get('/login', function () {
-        return redirect('https://maxisolutions.cl/login');
-    });
+        // Auth PAES
+    Route::get('/login', [\App\Http\Controllers\Paes\AuthController::class, 'showLogin'])->name('paes.login');
+    Route::post('/login', [\App\Http\Controllers\Paes\AuthController::class, 'login']);
+    Route::get('/register', [\App\Http\Controllers\Paes\AuthController::class, 'showRegister'])->name('paes.register');
+    Route::post('/register', [\App\Http\Controllers\Paes\AuthController::class, 'register']);
+    Route::post('/logout', [\App\Http\Controllers\Paes\AuthController::class, 'logout'])->name('paes.logout');
 });
 
 // Rutas públicas

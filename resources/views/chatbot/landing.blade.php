@@ -12,17 +12,17 @@
   <div class="container">
     <div class="row align-items-center g-5">
       <div class="col-lg-6">
-        <span class="ms-eyebrow reveal">Tu amigo sincero con IA</span>
-        <h1 class="my-3 reveal">El chatbot que <span class="ms-grad-text">dice las cosas</span> como son</h1>
-        <p class="lead mb-4 reveal">¿Cansado de respuestas genéricas? HateaChistopher es tu asistente virtual con personalidad: directo, honesto y con un toque de sarcasmo. Respuestas inteligentes sin rodeos.</p>
+        <span class="ms-eyebrow reveal">El chatbot anti-Chistopher</span>
+        <h1 class="my-3 reveal">¿Chistopher te cae mal? <span class="ms-grad-text">Yo también</span></h1>
+        <p class="lead mb-4 reveal">El único chatbot diseñado para tirarle hate a Chistopher 24/7. Pregúntame lo que sea y te daré las mejores respuestas para molestar, criticar o simplemente hacerle la vida imposible a Chistopher.</p>
         <div class="d-flex flex-wrap gap-3 mb-4 reveal">
-          <a href="#planes" class="ms-btn ms-btn-primary"><i class="fas fa-fire"></i> Ver planes</a>
+          <a href="#planes" class="ms-btn ms-btn-primary"><i class="fas fa-fire"></i> Empezar a hatear</a>
           <a href="{{ route('chatbot.dashboard') }}" class="ms-btn ms-btn-ghost"><i class="fas fa-robot"></i> Chatear gratis</a>
         </div>
         <div class="d-flex flex-wrap gap-2 reveal">
-          <span class="ms-chip"><i class="fas fa-fire"></i> Sin filtros</span>
-          <span class="ms-chip"><i class="fas fa-bolt"></i> Respuestas directas</span>
-          <span class="ms-chip"><i class="fas fa-smile-wink"></i> Con humor</span>
+          <span class="ms-chip"><i class="fas fa-fire"></i> 100% Anti-Chistopher</span>
+          <span class="ms-chip"><i class="fas fa-laugh"></i> Humor sin límites</span>
+          <span class="ms-chip"><i class="fas fa-bomb"></i> Roasts épicos</span>
         </div>
       </div>
       <div class="col-lg-6">
@@ -34,11 +34,11 @@
             <small>hateachistopher · chat.js</small>
           </div>
           <div class="ms-code">
-            <span class="ln"><span class="c-key">class</span> <span class="c-fn">EstudianteHateaChistopher</span> {</span>
-            <span class="ln">&nbsp;&nbsp;<span class="c-key">public function</span> <span class="c-fn">entrenar</span>() {</span>
+            <span class="ln"><span class="c-key">class</span> <span class="c-fn">RoasterDeChistopher</span> {</span>
+            <span class="ln">&nbsp;&nbsp;<span class="c-key">public function</span> <span class="c-fn">roastear</span>() {</span>
             <span class="ln">&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-key">return</span> <span class="c-var">$this</span></span>
             <span class="ln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-><span class="c-fn">practicar</span>(<span class="c-str">'preguntas IA'</span>)</span>
-            <span class="ln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-><span class="c-fn">serUtil</span>(); <span class="c-mut">// 🎓</span></span>
+            <span class="ln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-><span class="c-fn">destruir</span>(); <span class="c-mut">// 🎓</span></span>
             <span class="ln">&nbsp;&nbsp;}</span>
           </div>
         </div>

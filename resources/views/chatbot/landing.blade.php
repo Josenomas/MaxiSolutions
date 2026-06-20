@@ -13,7 +13,7 @@
     <div class="row align-items-center g-5">
       <div class="col-lg-6">
         <span class="ms-eyebrow reveal">El chatbot anti-Chistopher</span>
-        <h1 class="my-3 reveal">¿Chistopher te cae mal? <span class="ms-grad-text">Yo también</span></h1>
+        <h1 class="my-3 reveal">¿Chistopher te cae mal? <span class="ms-grad-text">A mi también</span></h1>
         <p class="lead mb-4 reveal">El único chatbot diseñado para tirarle hate a Chistopher 24/7. Pregúntame lo que sea y te daré las mejores respuestas para molestar, criticar o simplemente hacerle la vida imposible a Chistopher.</p>
         <div class="d-flex flex-wrap gap-3 mb-4 reveal">
           <a href="#planes" class="ms-btn ms-btn-primary"><i class="fas fa-fire"></i> Empezar a hatear</a>

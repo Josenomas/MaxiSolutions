@@ -17,6 +17,11 @@ return [
             'driver' => 'session',
             'provider' => 'paes_users',
         ],
+
+        'chatbot' => [
+            'driver' => 'session',
+            'provider' => 'chatbot_users',
+        ],
     ],
 
     'providers' => [
@@ -28,6 +33,11 @@ return [
         'paes_users' => [
             'driver' => 'eloquent',
             'model' => App\Models\PaesUser::class,
+        ],
+
+        'chatbot_users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Chatbot\ChatbotUser::class,
         ],
     ],
 
@@ -41,6 +51,13 @@ return [
 
         'paes_users' => [
             'provider' => 'paes_users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'chatbot_users' => [
+            'provider' => 'chatbot_users',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

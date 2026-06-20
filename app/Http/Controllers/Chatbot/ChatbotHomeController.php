@@ -8,6 +8,8 @@ class ChatbotHomeController extends Controller
 {
     public function landing()
     {
-        return view('chatbot.landing');
+        return view('chatbot.landing', [
+            'productos' => []
+        ]);
     }
 }

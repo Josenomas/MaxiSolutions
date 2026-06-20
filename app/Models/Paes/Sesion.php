@@ -102,6 +102,23 @@ class Sesion extends Model
         }
     }
 
+
+    /**
+     * Alias de calcularEstadisticas() para compatibilidad
+     */
+    public function calcularResultados()
+    {
+        return $this->calcularEstadisticas();
+    }
+
+    /**
+     * Atributo accessor para porcentaje_acierto (alias de porcentaje)
+     */
+    public function getPorcentajeAciertoAttribute()
+    {
+        return $this->porcentaje;
+    }
+
     /**
      * Actualizar progreso del usuario
      */

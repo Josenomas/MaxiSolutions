@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SolicitudController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\Paes\PreguntaController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NuevoMensajeMail;
@@ -25,7 +26,15 @@ Route::domain('paes.maxisolutions.cl')->group(function () {
         Route::get('/estadisticas', [\App\Http\Controllers\Paes\PaesController::class, 'estadisticas'])->name('paes.estadisticas');
     });
 
-    // Auth PAES (TODO: implementar login/register)
+
+    // API de práctica de preguntas
+    Route::middleware(['auth:paes'])->prefix('app/api')->group(function () {
+        Route::post('/preguntas/iniciar', [PreguntaController::class, 'iniciarPractica'])->name('paes.api.preguntas.iniciar');
+        Route::post('/preguntas/responder', [PreguntaController::class, 'responder'])->name('paes.api.preguntas.responder');
+        Route::post('/sesion/{sesionId}/finalizar', [PreguntaController::class, 'finalizarSesion'])->name('paes.api.sesion.finalizar');
+    });
+
+        // Auth PAES (TODO: implementar login/register)
     Route::get('/login', function () {
         return redirect('https://maxisolutions.cl/login');
     });

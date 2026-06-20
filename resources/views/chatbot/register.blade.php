@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión - HateaChistopher</title>
+    <title>Crear Cuenta - HateaChistopher</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -21,6 +21,7 @@
             justify-content: center;
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
             color: #fff;
+            padding: 40px 0;
         }
 
         .auth-container {
@@ -152,21 +153,6 @@
             border: 1px solid rgba(220, 53, 69, 0.3);
         }
 
-        .form-check-input {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        .form-check-input:checked {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-color: #667eea;
-        }
-
-        .form-check-label {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 14px;
-        }
-
         .back-home {
             text-align: center;
             margin-top: 20px;
@@ -182,6 +168,16 @@
         .back-home a:hover {
             color: #fff;
         }
+
+        .plan-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
@@ -189,50 +185,68 @@
         <div class="auth-card">
             <div class="logo">
                 <h1><i class="fas fa-robot"></i> HateaChistopher</h1>
-                <p>El chatbot que dice las cosas como son</p>
+                <p>Crea tu cuenta y empieza a roastear</p>
+                <span class="plan-badge">
+                    <i class="fas fa-gift"></i> Plan Gratuito - 50 roasts/día
+                </span>
             </div>
 
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <i class="fas fa-exclamation-circle"></i>
-                    {{ $errors->first() }}
+                    <ul class="mb-0" style="padding-left: 20px;">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
             @endif
 
-            <form method="POST" action="{{ route('chatbot.login') }}">
+            <form method="POST" action="{{ route('chatbot.register') }}">
                 @csrf
+
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nombre completo</label>
+                    <input type="text" class="form-control" id="name" name="name"
+                           placeholder="Tu nombre" required autofocus value="{{ old('name') }}">
+                </div>
 
                 <div class="mb-3">
                     <label for="email" class="form-label">Correo electrónico</label>
                     <input type="email" class="form-control" id="email" name="email"
-                           placeholder="tu@email.com" required autofocus value="{{ old('email') }}">
+                           placeholder="tu@email.com" required value="{{ old('email') }}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="telefono" class="form-label">Teléfono <small class="text-muted">(opcional)</small></label>
+                    <input type="text" class="form-control" id="telefono" name="telefono"
+                           placeholder="+56 9 1234 5678" value="{{ old('telefono') }}">
                 </div>
 
                 <div class="mb-3">
                     <label for="password" class="form-label">Contraseña</label>
                     <input type="password" class="form-control" id="password" name="password"
-                           placeholder="••••••••" required>
+                           placeholder="Mínimo 8 caracteres" required>
                 </div>
 
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="remember" name="remember">
-                    <label class="form-check-label" for="remember">
-                        Recordarme
-                    </label>
+                <div class="mb-3">
+                    <label for="password_confirmation" class="form-label">Confirmar contraseña</label>
+                    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation"
+                           placeholder="Repite tu contraseña" required>
                 </div>
 
                 <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                    <i class="fas fa-user-plus"></i> Crear cuenta gratis
                 </button>
             </form>
 
             <div class="divider">
-                <span>¿No tienes cuenta?</span>
+                <span>¿Ya tienes cuenta?</span>
             </div>
 
             <div class="text-center">
-                <a href="{{ route('chatbot.register') }}" class="text-link">
-                    Crear cuenta gratis <i class="fas fa-arrow-right"></i>
+                <a href="{{ route('chatbot.login') }}" class="text-link">
+                    Iniciar sesión <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
         </div>

@@ -12,17 +12,17 @@
   <div class="container">
     <div class="row align-items-center g-5">
       <div class="col-lg-6">
-        <span class="ms-eyebrow reveal">Preparación universitaria</span>
-        <h1 class="my-3 reveal">Alcanza tu <span class="ms-grad-text">máximo puntaje</span> en la HateaChistopher</h1>
-        <p class="lead mb-4 reveal">Plataforma inteligente con IA generativa, tutor virtual y miles de preguntas adaptativas. Prepárate de forma personalizada para tu examen de admisión universitaria.</p>
+        <span class="ms-eyebrow reveal">Tu amigo sincero con IA</span>
+        <h1 class="my-3 reveal">El chatbot que <span class="ms-grad-text">dice las cosas</span> como son</h1>
+        <p class="lead mb-4 reveal">¿Cansado de respuestas genéricas? HateaChistopher es tu asistente virtual con personalidad: directo, honesto y con un toque de sarcasmo. Respuestas inteligentes sin rodeos.</p>
         <div class="d-flex flex-wrap gap-3 mb-4 reveal">
-          <a href="#planes" class="ms-btn ms-btn-primary"><i class="fas fa-rocket"></i> Ver planes</a>
-          <a href="{{ route('chatbot.dashboard') }}" class="ms-btn ms-btn-ghost"><i class="fas fa-robot"></i> Comenzar gratis</a>
+          <a href="#planes" class="ms-btn ms-btn-primary"><i class="fas fa-fire"></i> Ver planes</a>
+          <a href="{{ route('chatbot.dashboard') }}" class="ms-btn ms-btn-ghost"><i class="fas fa-robot"></i> Chatear gratis</a>
         </div>
         <div class="d-flex flex-wrap gap-2 reveal">
-          <span class="ms-chip"><i class="fas fa-brain"></i> IA Generativa</span>
-          <span class="ms-chip"><i class="fas fa-comments"></i> Tutor Virtual</span>
-          <span class="ms-chip"><i class="fas fa-chart-line"></i> Análisis Personalizado</span>
+          <span class="ms-chip"><i class="fas fa-fire"></i> Sin filtros</span>
+          <span class="ms-chip"><i class="fas fa-bolt"></i> Respuestas directas</span>
+          <span class="ms-chip"><i class="fas fa-smile-wink"></i> Con humor</span>
         </div>
       </div>
       <div class="col-lg-6">
@@ -31,14 +31,14 @@
             <span class="dot" style="background:#ff5f56"></span>
             <span class="dot" style="background:#ffbd2e"></span>
             <span class="dot" style="background:#27c93f"></span>
-            <small>paes-prep · simulador.php</small>
+            <small>hateachistopher · chat.js</small>
           </div>
           <div class="ms-code">
             <span class="ln"><span class="c-key">class</span> <span class="c-fn">EstudianteHateaChistopher</span> {</span>
             <span class="ln">&nbsp;&nbsp;<span class="c-key">public function</span> <span class="c-fn">entrenar</span>() {</span>
             <span class="ln">&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-key">return</span> <span class="c-var">$this</span></span>
             <span class="ln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-><span class="c-fn">practicar</span>(<span class="c-str">'preguntas IA'</span>)</span>
-            <span class="ln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-><span class="c-fn">alcanzarMeta</span>(); <span class="c-mut">// 🎓</span></span>
+            <span class="ln">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-><span class="c-fn">serUtil</span>(); <span class="c-mut">// 🎓</span></span>
             <span class="ln">&nbsp;&nbsp;}</span>
           </div>
         </div>
@@ -52,10 +52,10 @@
   <div class="container">
     <div class="ms-stats reveal">
       <div class="row text-center g-0">
-        <div class="col-6 col-md-3 ms-stat py-4"><div class="num ms-grad-text" data-count="10000">0</div><div class="lbl">Preguntas disponibles</div></div>
-        <div class="col-6 col-md-3 ms-stat py-4"><div class="num ms-grad-text" data-count="4">0</div><div class="lbl">Materias HateaChistopher</div></div>
-        <div class="col-6 col-md-3 ms-stat py-4"><div class="num ms-grad-text" data-count="21">0</div><div class="lbl">Temas cubiertos</div></div>
-        <div class="col-6 col-md-3 ms-stat py-4"><div class="num ms-grad-text" data-count="24" data-suffix="/7">0</div><div class="lbl">Acceso disponible</div></div>
+        <div class="col-6 col-md-3 ms-stat py-4"><div class="num ms-grad-text" data-count="10000">0</div><div class="lbl">Conversaciones por día</div></div>
+        <div class="col-6 col-md-3 ms-stat py-4"><div class="num ms-grad-text" data-count="4">0</div><div class="lbl">Modos disponibles</div></div>
+        <div class="col-6 col-md-3 ms-stat py-4"><div class="num ms-grad-text" data-count="21">0</div><div class="lbl">Respuestas inteligentes</div></div>
+        <div class="col-6 col-md-3 ms-stat py-4"><div class="num ms-grad-text" data-count="24" data-suffix="/7">0</div><div class="lbl">Disponibilidad</div></div>
       </div>
     </div>
   </div>
@@ -65,9 +65,9 @@
 <section id="funcionalidades" class="ms-section" data-screen-label="Funcionalidades">
   <div class="container">
     <div class="text-center mb-5 reveal">
-      <span class="ms-eyebrow">Lo que ofrecemos</span>
-      <h2 class="mt-2 mb-3">Funcionalidades <span class="ms-grad-text">inteligentes</span></h2>
-      <p class="sub">Todo lo que necesitas para alcanzar tu máximo puntaje en la HateaChistopher, con tecnología de inteligencia artificial.</p>
+      <span class="ms-eyebrow">Lo que hace diferente a HateaChistopher</span>
+      <h2 class="mt-2 mb-3">Un chatbot <span class="ms-grad-text">con actitud</span></h2>
+      <p class="sub">No más respuestas aburridas. HateaChistopher tiene personalidad, sentido del humor y te dice las cosas claras.</p>
     </div>
     <div class="row g-4">
       <div class="col-12 col-sm-6 col-lg-3 reveal">
@@ -251,7 +251,7 @@
             <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> Estadísticas básicas</li>
             <li style="margin-bottom: 0.5rem; opacity: 0.4;"><i class="fas fa-times" style="margin-right: 8px;"></i> Sin IA</li>
           </ul>
-          <a href="{{ route('chatbot.dashboard') }}" class="ms-btn ms-btn-ghost w-100">Comenzar gratis</a>
+          <a href="{{ route('chatbot.dashboard') }}" class="ms-btn ms-btn-ghost w-100">Chatear gratis</a>
         </div>
       </div>
 

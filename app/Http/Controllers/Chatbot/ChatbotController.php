@@ -18,7 +18,7 @@ class ChatbotController extends Controller
             ->get();
         
         $totalConversaciones = $user->conversaciones()->count();
-        $mensajesHoy = $user->usos()->whereDate('fecha', today())->sum('mensajes_enviados');
+        $mensajesHoy = $user->uso()->whereDate('fecha', today())->sum('mensajes_enviados');
         $mensajesRestantes = $user->getMensajesRestantesHoy();
         
         $stats = [

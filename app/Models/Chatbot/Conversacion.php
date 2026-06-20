@@ -33,6 +33,11 @@ class Conversacion extends Model
         return $this->hasMany(Mensaje::class, 'conversacion_id');
     }
 
+    public function ultimoMensaje()
+    {
+        return $this->hasOne(Mensaje::class, 'conversacion_id')->latestOfMany();
+    }
+
     public function actualizarActividad()
     {
         $this->update(['ultima_actividad' => now()]);

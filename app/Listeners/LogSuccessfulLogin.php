@@ -14,6 +14,11 @@ class LogSuccessfulLogin
 
     public function handle(Login $event)
     {
+        // Ignorar logins del guard chatbot (usan su propia tabla chatbot_users)
+        if ($event->guard === 'chatbot') {
+            return;
+        }
+
         SecurityLog::logLoginSuccess($event->user->id);
     }
 }

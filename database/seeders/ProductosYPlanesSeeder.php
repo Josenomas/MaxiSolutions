@@ -135,7 +135,64 @@ class ProductosYPlanesSeeder extends Seeder
 
         $this->command->info('✓ Producto PAES y planes creados exitosamente');
 
-        // 2. PRODUCTO ERP (Futuro)
+
+        // 2. PRODUCTO HATEACHISTOPHER (CHATBOT)
+        $chatbot = Producto::create([
+            'nombre' => 'HateaChistopher - Chatbot IA',
+            'slug' => 'hateachistopher',
+            'icono' => 'robot',
+            'descripcion' => 'Asistente virtual inteligente disponible 24/7 para resolver tus consultas',
+            'url_base' => 'https://hateachistopher.maxisolutions.cl',
+            'requiere_suscripcion' => true,
+            'activo' => true,
+            'configuracion' => [
+                'modelos' => ['gpt-3.5-turbo', 'claude', 'gemini'],
+                'features' => ['conversaciones_ilimitadas', 'contexto_persistente', 'respuestas_inteligentes', 'personalizacion'],
+            ],
+        ]);
+
+        Plan::create([
+            'producto_id' => $chatbot->id,
+            'nombre' => 'Plan Gratuito',
+            'slug' => 'gratuito',
+            'descripcion' => 'Prueba el chatbot con funciones básicas',
+            'precio_mensual' => 0,
+            'precio_anual' => 0,
+            'caracteristicas' => ['50 mensajes por día', 'Modelo GPT-3.5', 'Historial de 7 días', 'Respuestas estándar'],
+            'limites' => ['mensajes_dia' => 50, 'conversaciones_activas' => 5, 'historial_dias' => 7],
+            'activo' => true,
+            'orden' => 1
+        ]);
+
+        Plan::create([
+            'producto_id' => $chatbot->id,
+            'nombre' => 'Plan Básico',
+            'slug' => 'basico',
+            'descripcion' => 'Ideal para uso personal frecuente',
+            'precio_mensual' => 3990,
+            'precio_anual' => 39900,
+            'caracteristicas' => ['500 mensajes por día', 'Modelos GPT-3.5 y Claude', 'Historial ilimitado', 'Respuestas personalizadas', 'Soporte por email'],
+            'limites' => ['mensajes_dia' => 500, 'conversaciones_activas' => 50, 'historial_dias' => null],
+            'activo' => true,
+            'orden' => 2
+        ]);
+
+        Plan::create([
+            'producto_id' => $chatbot->id,
+            'nombre' => 'Plan Premium',
+            'slug' => 'premium',
+            'descripcion' => 'Para usuarios avanzados sin límites',
+            'precio_mensual' => 9990,
+            'precio_anual' => 99900,
+            'caracteristicas' => ['Mensajes ilimitados', 'Todos los modelos (GPT-4, Claude, Gemini)', 'Historial ilimitado', 'Respuestas prioritarias', 'Personalización avanzada', 'Soporte prioritario', 'API de acceso'],
+            'limites' => null,
+            'activo' => true,
+            'orden' => 3
+        ]);
+
+        $this->command->info('✓ Producto HateaChistopher y planes creados exitosamente');
+
+        // 3. PRODUCTO ERP (Futuro)
         $erp = Producto::create([
             'nombre' => 'ERP Empresarial',
             'slug' => 'erp',

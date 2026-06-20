@@ -52,9 +52,9 @@
   <div class="container">
     <div class="ms-stats reveal">
       <div class="row text-center g-0">
-        <div class="col-6 col-md-3 ms-stat py-4"><div class="num ms-grad-text" data-count="10000">0</div><div class="lbl">Conversaciones por día</div></div>
-        <div class="col-6 col-md-3 ms-stat py-4"><div class="num ms-grad-text" data-count="4">0</div><div class="lbl">Modos disponibles</div></div>
-        <div class="col-6 col-md-3 ms-stat py-4"><div class="num ms-grad-text" data-count="21">0</div><div class="lbl">Respuestas inteligentes</div></div>
+        <div class="col-6 col-md-3 ms-stat py-4"><div class="num ms-grad-text" data-count="10000">0</div><div class="lbl">Roasts generados</div></div>
+        <div class="col-6 col-md-3 ms-stat py-4"><div class="num ms-grad-text" data-count="5">0</div><div class="lbl">Niveles de hate</div></div>
+        <div class="col-6 col-md-3 ms-stat py-4"><div class="num ms-grad-text" data-count="999">0</div><div class="lbl">Formas de molestar</div></div>
         <div class="col-6 col-md-3 ms-stat py-4"><div class="num ms-grad-text" data-count="24" data-suffix="/7">0</div><div class="lbl">Disponibilidad</div></div>
       </div>
     </div>
@@ -65,57 +65,57 @@
 <section id="funcionalidades" class="ms-section" data-screen-label="Funcionalidades">
   <div class="container">
     <div class="text-center mb-5 reveal">
-      <span class="ms-eyebrow">Lo que hace diferente a HateaChistopher</span>
-      <h2 class="mt-2 mb-3">Un chatbot <span class="ms-grad-text">con actitud</span></h2>
-      <p class="sub">No más respuestas aburridas. HateaChistopher tiene personalidad, sentido del humor y te dice las cosas claras.</p>
+      <span class="ms-eyebrow">¿Por qué usar HateaChistopher?</span>
+      <h2 class="mt-2 mb-3">El chatbot más <span class="ms-grad-text">anti-Chistopher</span> del mundo</h2>
+      <p class="sub">Porque odiar a Chistopher es más divertido con IA. Respuestas creativas, roasts personalizados y humor garantizado.</p>
     </div>
     <div class="row g-4">
       <div class="col-12 col-sm-6 col-lg-3 reveal">
         <div class="ms-card">
           <span class="ms-ribbon">Popular</span>
           <div class="ms-ico">
-            <i class="fas fa-brain"></i>
+            <i class="fas fa-fire"></i>
           </div>
-          <h5>Preguntas con IA</h5>
-          <p class="desc">Miles de preguntas generadas con inteligencia artificial, adaptadas a tu nivel y áreas de mejora.</p>
-          <p class="ms-meta mb-3"><i class="fas fa-infinity"></i> Contenido ilimitado</p>
-          <a href="{{ route('chatbot.dashboard') }}" class="ms-link">Practicar ahora <i class="fas fa-arrow-right"></i></a>
+          <h5>Roasts Personalizados</h5>
+          <p class="desc">Roasts únicos generados con IA especialmente diseñados para molestar a Chistopher de forma creativa y divertida.</p>
+          <p class="ms-meta mb-3"><i class="fas fa-infinity"></i> Roasts infinitos</p>
+          <a href="{{ route('chatbot.dashboard') }}" class="ms-link">Empezar a roastear <i class="fas fa-arrow-right"></i></a>
         </div>
       </div>
 
       <div class="col-12 col-sm-6 col-lg-3 reveal">
         <div class="ms-card">
           <div class="ms-ico">
-            <i class="fas fa-comments"></i>
+            <i class="fas fa-laugh-beam"></i>
           </div>
-          <h5>Tutor Virtual 24/7</h5>
-          <p class="desc">Pregunta tus dudas en cualquier momento. La IA te explica conceptos y resuelve ejercicios paso a paso.</p>
-          <p class="ms-meta mb-3"><i class="fas fa-robot"></i> Respuestas instantáneas</p>
-          <a href="{{ route('chatbot.dashboard') }}" class="ms-link">Probar tutor <i class="fas fa-arrow-right"></i></a>
+          <h5>Modo Sarcasmo Activado</h5>
+          <p class="desc">Respuestas con humor, sarcasmo y un toque de hate. Porque molestar a Chistopher es un arte.</p>
+          <p class="ms-meta mb-3"><i class="fas fa-robot"></i> 100% Sarcástico</p>
+          <a href="{{ route('chatbot.dashboard') }}" class="ms-link">Activar sarcasmo <i class="fas fa-arrow-right"></i></a>
         </div>
       </div>
 
       <div class="col-12 col-sm-6 col-lg-3 reveal">
         <div class="ms-card">
           <div class="ms-ico">
-            <i class="fas fa-clipboard-list"></i>
+            <i class="fas fa-bomb"></i>
           </div>
-          <h5>Simuladores HateaChistopher</h5>
-          <p class="desc">Ensayos completos cronometrados que replican fielmente las condiciones del examen oficial.</p>
-          <p class="ms-meta mb-3"><i class="fas fa-clock"></i> Tiempo real</p>
-          <a href="{{ route('chatbot.dashboard') }}" class="ms-link">Iniciar ensayo <i class="fas fa-arrow-right"></i></a>
+          <h5>Generador de Comebacks</h5>
+          <p class="desc">Las mejores respuestas para dejar a Chistopher sin palabras. Comebacks épicos para cada situación.</p>
+          <p class="ms-meta mb-3"><i class="fas fa-clock"></i> Siempre listo</p>
+          <a href="{{ route('chatbot.dashboard') }}" class="ms-link">Ver comebacks <i class="fas fa-arrow-right"></i></a>
         </div>
       </div>
 
       <div class="col-12 col-sm-6 col-lg-3 reveal">
         <div class="ms-card">
           <div class="ms-ico">
-            <i class="fas fa-chart-line"></i>
+            <i class="fas fa-grin-squint-tears"></i>
           </div>
-          <h5>Análisis Detallado</h5>
-          <p class="desc">Estadísticas completas de tu progreso, fortalezas, debilidades y recomendaciones personalizadas.</p>
-          <p class="ms-meta mb-3"><i class="fas fa-bullseye"></i> Enfoque personalizado</p>
-          <a href="{{ route('chatbot.dashboard') }}" class="ms-link">Ver estadísticas <i class="fas fa-arrow-right"></i></a>
+          <h5>Humor Garantizado</h5>
+          <p class="desc">Porque odiar a Chistopher debe ser divertido. Humor inteligente sin pasarse de la raya.</p>
+          <p class="ms-meta mb-3"><i class="fas fa-bullseye"></i> Risa asegurada</p>
+          <a href="{{ route('chatbot.dashboard') }}" class="ms-link">Reír ahora <i class="fas fa-arrow-right"></i></a>
         </div>
       </div>
     </div>
@@ -126,52 +126,52 @@
 <section id="materias" class="ms-section" style="background:var(--ms-bg-alt)" data-screen-label="Materias">
   <div class="container">
     <div class="text-center mb-5 reveal">
-      <span class="ms-eyebrow">Contenido completo</span>
-      <h2 class="mt-2 mb-3">4 Materias <span class="ms-grad-text">HateaChistopher</span></h2>
-      <p class="sub">Practica todas las áreas del examen con contenido actualizado y alineado al temario oficial.</p>
+      <span class="ms-eyebrow">Niveles de intensidad</span>
+      <h2 class="mt-2 mb-3">Modos de <span class="ms-grad-text">Roast</span></h2>
+      <p class="sub">Elige el nivel de hate perfecto para cada ocasión. Desde suave hasta devastador.</p>
     </div>
     <div class="row g-4">
       <div class="col-12 col-sm-6 col-md-3 reveal">
         <div class="ms-card h-100 text-center">
           <div class="ms-ico" style="font-size: 3rem; color: #667eea;">
-            <i class="fas fa-calculator"></i>
+            <i class="fas fa-smile"></i>
           </div>
-          <h5>Matemática M1 y M2</h5>
-          <p class="desc">Álgebra, Geometría, Probabilidades, Datos y Funciones</p>
-          <p class="ms-price ms-grad-text mb-1">5+ <span>temas</span></p>
+          <h5>Modo Suave</h5>
+          <p class="desc">Para molestar sin ofender. Sarcasmo ligero y humor amigable.</p>
+          <p class="ms-price ms-grad-text mb-1">Nivel 1</p>
         </div>
       </div>
 
       <div class="col-12 col-sm-6 col-md-3 reveal">
         <div class="ms-card h-100 text-center">
           <div class="ms-ico" style="font-size: 3rem; color: #667eea;">
-            <i class="fas fa-book-open"></i>
+            <i class="fas fa-grin"></i>
           </div>
-          <h5>Competencia Lectora</h5>
-          <p class="desc">Comprensión, Vocabulario, Gramática y Tipos de Textos</p>
-          <p class="ms-price ms-grad-text mb-1">5+ <span>temas</span></p>
+          <h5>Modo Moderado</h5>
+          <p class="desc">Un poco más picante. Roasts creativos con ingenio.</p>
+          <p class="ms-price ms-grad-text mb-1">Nivel 2</p>
         </div>
       </div>
 
       <div class="col-12 col-sm-6 col-md-3 reveal">
         <div class="ms-card h-100 text-center">
           <div class="ms-ico" style="font-size: 3rem; color: #667eea;">
-            <i class="fas fa-flask"></i>
+            <i class="fas fa-fire-alt"></i>
           </div>
-          <h5>Ciencias</h5>
-          <p class="desc">Biología, Química y Física con enfoque experimental</p>
-          <p class="ms-price ms-grad-text mb-1">6+ <span>temas</span></p>
+          <h5>Modo Intenso</h5>
+          <p class="desc">Aquí se pone serio. Roasts que duelen (pero con amor).</p>
+          <p class="ms-price ms-grad-text mb-1">Nivel 3</p>
         </div>
       </div>
 
       <div class="col-12 col-sm-6 col-md-3 reveal">
         <div class="ms-card h-100 text-center">
           <div class="ms-ico" style="font-size: 3rem; color: #667eea;">
-            <i class="fas fa-landmark"></i>
+            <i class="fas fa-bomb"></i>
           </div>
-          <h5>Historia y CCSS</h5>
-          <p class="desc">Chile, América, Mundo, Economía y Ciencias Sociales</p>
-          <p class="ms-price ms-grad-text mb-1">5+ <span>temas</span></p>
+          <h5>Modo Devastador</h5>
+          <p class="desc">Sin piedad. El nivel máximo de hate permitido.</p>
+          <p class="ms-price ms-grad-text mb-1">Nivel 4</p>
         </div>
       </div>
     </div>
@@ -184,7 +184,7 @@
     <div class="text-center mb-5 reveal">
       <span class="ms-eyebrow">Elige tu plan</span>
       <h2 class="mt-2 mb-3">Planes y <span class="ms-grad-text">precios</span></h2>
-      <p class="sub">Desde acceso gratuito hasta preparación completa con IA. Elige el plan que mejor se adapte a tus necesidades.</p>
+      <p class="sub">Elige cuánto hate necesitas. Desde casual hasta profesional del roast.</p>
     </div>
     <div class="row g-4 justify-content-center">
       <!-- Plan Gratuito -->
@@ -244,12 +244,12 @@
   box-shadow: 0 12px 40px rgba(102, 126, 234, 0.3) !important;
 }
 </style> <span>/ mes</span></p>
-          <p class="desc mb-4">Perfecto para comenzar</p>
+          <p class="desc mb-4">Para empezar a molestar</p>
           <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem;">
-            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> 10 preguntas/día</li>
-            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> 4 materias HateaChistopher</li>
-            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> Estadísticas básicas</li>
-            <li style="margin-bottom: 0.5rem; opacity: 0.4;"><i class="fas fa-times" style="margin-right: 8px;"></i> Sin IA</li>
+            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> 50 roasts/día</li>
+            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> Todos los modos</li>
+            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> Roasts básicos</li>
+            <li style="margin-bottom: 0.5rem; opacity: 0.4;"><i class="fas fa-times" style="margin-right: 8px;"></i> Modo suave únicamente</li>
           </ul>
           <a href="{{ route('chatbot.dashboard') }}" class="ms-btn ms-btn-ghost w-100">Chatear gratis</a>
         </div>
@@ -260,12 +260,12 @@
         <div class="ms-card h-100">
           <h5>Básico</h5>
           <p class="ms-price ms-grad-text mb-1">.990 <span>/ mes</span></p>
-          <p class="desc mb-4">Para práctica regular</p>
+          <p class="desc mb-4">Para haters serios</p>
           <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem;">
-            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> 100 preguntas/día</li>
-            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> Preguntas con IA</li>
-            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> 20 consultas tutor/día</li>
-            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> Análisis detallado</li>
+            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> 500 roasts/día</li>
+            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> Roasts con IA</li>
+            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> Comebacks infinitos</li>
+            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> Modo intenso incluido</li>
           </ul>
           <a href="{{ route('chatbot.dashboard') }}" class="ms-btn ms-btn-primary w-100">Suscribirse</a>
         </div>
@@ -277,12 +277,12 @@
           <span class="ms-ribbon">Recomendado</span>
           <h5>Premium</h5>
           <p class="ms-price ms-grad-text mb-1">.990 <span>/ mes</span></p>
-          <p class="desc mb-4">Preparación completa</p>
+          <p class="desc mb-4">Hate ilimitado</p>
           <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem;">
-            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> Preguntas ilimitadas</li>
-            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> Tutor IA ilimitado</li>
-            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> Simuladores completos</li>
-            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> Gamificación total</li>
+            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> Roasts ilimitados</li>
+            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> Todos los modos de hate</li>
+            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> Generador de roasts pro</li>
+            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> Sarcasmo nivel experto</li>
           </ul>
           <a href="{{ route('chatbot.dashboard') }}" class="ms-btn ms-btn-primary w-100">Suscribirse</a>
         </div>
@@ -293,12 +293,12 @@
         <div class="ms-card h-100">
           <h5>Institucional</h5>
           <p class="ms-price ms-grad-text mb-1">Consultar <span>precio</span></p>
-          <p class="desc mb-4">Para colegios y preuniversitarios</p>
+          <p class="desc mb-4">Para empresas que odian a Chistopher</p>
           <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem;">
-            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> Usuarios ilimitados</li>
-            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> Dashboard admin</li>
-            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> Reportes grupales</li>
-            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> Soporte dedicado</li>
+            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> Hate empresarial ilimitado</li>
+            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> Panel de control de roasts</li>
+            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> Estadísticas de team hate</li>
+            <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> Soporte 24/7</li>
           </ul>
           <a href="https://maxisolutions.cl/solicitud/create" class="ms-btn ms-btn-ghost w-100">Contactar</a>
         </div>
@@ -314,9 +314,9 @@
       <div class="aurora x"></div>
       <div class="aurora y"></div>
       <div class="ms-cta-inner mx-auto" style="max-width:640px">
-        <h2 class="mb-3">¿Listo para alcanzar tu máximo puntaje?</h2>
-        <p class="lead mb-4" style="color:rgba(255,255,255,.78)">Comienza gratis hoy y descubre cómo la IA puede transformar tu preparación para la HateaChistopher.</p>
-        <a href="{{ route('chatbot.dashboard') }}" class="ms-btn ms-btn-primary btn-lg"><i class="fas fa-robot"></i> Comenzar ahora gratis</a>
+        <h2 class="mb-3">¿Listo para empezar a molestar a Chistopher?</h2>
+        <p class="lead mb-4" style="color:rgba(255,255,255,.78)">Únete ahora y descubre el poder de la IA para generar los mejores roasts anti-Chistopher. Humor garantizado.</p>
+        <a href="{{ route('chatbot.dashboard') }}" class="ms-btn ms-btn-primary btn-lg"><i class="fas fa-robot"></i> Empezar a hatear gratis</a>
       </div>
     </div>
   </div>

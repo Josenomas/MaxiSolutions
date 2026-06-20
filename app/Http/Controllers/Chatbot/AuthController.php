@@ -14,7 +14,7 @@ class AuthController extends Controller
 {
     public function showLogin()
     {
-        return view('chatbot.auth.login');
+        return view('chatbot.login');
     }
 
     public function login(Request $request)
@@ -36,7 +36,7 @@ class AuthController extends Controller
 
     public function showRegister()
     {
-        return view('chatbot.auth.register');
+        return view('chatbot.register');
     }
 
     public function register(Request $request)
@@ -59,10 +59,10 @@ class AuthController extends Controller
 
         // Crear registro de uso inicial
         Uso::create([
-            'chatbot_user_id' => $user->id,
+            'user_id' => $user->id,
             'fecha' => today(),
             'mensajes_enviados' => 0,
-            'conversaciones_creadas' => 0,
+            'tokens_usados' => 0,
         ]);
 
         Auth::guard('chatbot')->login($user);

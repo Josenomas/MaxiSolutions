@@ -32,6 +32,7 @@ Route::domain('paes.maxisolutions.cl')->group(function () {
         Route::post('/preguntas/iniciar', [PreguntaController::class, 'iniciarPractica'])->name('paes.api.preguntas.iniciar');
         Route::post('/preguntas/responder', [PreguntaController::class, 'responder'])->name('paes.api.preguntas.responder');
         Route::post('/sesion/{sesionId}/finalizar', [PreguntaController::class, 'finalizarSesion'])->name('paes.api.sesion.finalizar');
+        Route::get('/materias/{materiaId}/temas', [PreguntaController::class, 'obtenerTemasPorMateria'])->name('paes.api.materias.temas');
     });
 
         // Auth PAES (TODO: implementar login/register)

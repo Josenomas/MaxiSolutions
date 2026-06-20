@@ -144,6 +144,17 @@ class PreguntaController extends Controller
             ->get();
     }
 
+
+    public function obtenerTemasPorMateria($materiaId)
+    {
+        $temas = Tema::where('materia_id', $materiaId)
+            ->select('id', 'nombre')
+            ->orderBy('orden')
+            ->get();
+
+        return response()->json($temas);
+    }
+
     private function verificarLimitePreguntas($user, $cantidad)
     {
         if ($user->plan === 'premium') {

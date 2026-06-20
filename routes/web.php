@@ -11,6 +11,30 @@ use App\Mail\NuevoMensajeMail;
 use App\Mail\CambioEstadoMail;
 use App\Mail\PagoRecibidoMail;
 
+
+// ========================================
+// RUTAS SUBDOMINIO CHATBOT
+// ========================================
+Route::domain('hateachistopher.maxisolutions.cl')->group(function () {
+    Route::get('/', [\App\Http\Controllers\Chatbot\ChatbotHomeController::class, 'landing'])->name('chatbot.home');
+
+    Route::middleware(['auth:chatbot'])->prefix('app')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Chatbot\ChatbotController::class, 'dashboard'])->name('chatbot.dashboard');
+        Route::get('/chat/{conversacionId?}', [\App\Http\Controllers\Chatbot\ChatbotController::class, 'chat'])->name('chatbot.chat');
+    });
+
+    Route::middleware(['auth:chatbot'])->prefix('app/api')->group(function () {
+        Route::post('/enviar-mensaje', [\App\Http\Controllers\Chatbot\ChatController::class, 'enviarMensaje'])->name('chatbot.api.enviar-mensaje');
+        Route::post('/nueva-conversacion', [\App\Http\Controllers\Chatbot\ChatController::class, 'nuevaConversacion'])->name('chatbot.api.nueva-conversacion');
+        Route::get('/conversacion/{id}', [\App\Http\Controllers\Chatbot\ChatController::class, 'obtenerConversacion'])->name('chatbot.api.conversacion');
+    });
+
+    Route::get('/login', [\App\Http\Controllers\Chatbot\AuthController::class, 'showLogin'])->name('chatbot.login');
+    Route::post('/login', [\App\Http\Controllers\Chatbot\AuthController::class, 'login']);
+    Route::get('/register', [\App\Http\Controllers\Chatbot\AuthController::class, 'showRegister'])->name('chatbot.register');
+    Route::post('/register', [\App\Http\Controllers\Chatbot\AuthController::class, 'register']);
+    Route::post('/logout', [\App\Http\Controllers\Chatbot\AuthController::class, 'logout'])->name('chatbot.logout');
+});
 // ========================================
 // RUTAS SUBDOMINIO PAES
 // ========================================

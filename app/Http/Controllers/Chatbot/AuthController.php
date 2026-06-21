@@ -61,7 +61,7 @@ class AuthController extends Controller
                 'session_secure' => config('session.secure'),
             ]);
 
-            return redirect()->intended(route('chatbot.dashboard'));
+            return redirect()->route('chatbot.dashboard');
         }
 
         \Log::info('Chatbot Login Failed', [

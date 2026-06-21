@@ -42,11 +42,14 @@ class AuthController extends Controller
 
             Auth::guard('chatbot')->login($user, $request->filled('remember'));
 
-            // Si la sesión cambió, restaurar el ID original
+            // Si la sesión cambió, restaurar el ID original y guardar
             if (session()->getId() !== $currentSessionId) {
                 session()->setId($currentSessionId);
                 session()->start();
             }
+
+            // Forzar guardar la sesión inmediatamente
+            session()->save();
 
             \Log::info('Chatbot Login Success (Manual)', [
                 'user_id' => Auth::guard('chatbot')->id(),

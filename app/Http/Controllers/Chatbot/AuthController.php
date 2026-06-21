@@ -24,10 +24,28 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
+        \Log::info('Chatbot Login Attempt', [
+            'email' => $request->email,
+            'session_id_before' => session()->getId(),
+            'guard_check_before' => Auth::guard('chatbot')->check(),
+        ]);
+
         if (Auth::guard('chatbot')->attempt($request->only('email', 'password'), $request->filled('remember'))) {
             $request->session()->regenerate();
+
+            \Log::info('Chatbot Login Success', [
+                'user_id' => Auth::guard('chatbot')->id(),
+                'session_id_after' => session()->getId(),
+                'guard_check_after' => Auth::guard('chatbot')->check(),
+                'session_data' => session()->all(),
+            ]);
+
             return redirect()->intended(route('chatbot.dashboard'));
         }
+
+        \Log::info('Chatbot Login Failed', [
+            'email' => $request->email,
+        ]);
 
         throw ValidationException::withMessages([
             'email' => ['Las credenciales no coinciden.'],

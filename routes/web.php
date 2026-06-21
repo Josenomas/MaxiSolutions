@@ -29,15 +29,12 @@ Route::domain('hateachistopher.maxisolutions.cl')->group(function () {
         Route::get('/conversacion/{id}', [\App\Http\Controllers\Chatbot\ChatController::class, 'obtenerConversacion'])->name('chatbot.api.conversacion');
     });
 
-    // Rutas de autenticación (login y register solo para invitados)
-    Route::middleware('guest:chatbot')->group(function () {
-        Route::get('/login', [\App\Http\Controllers\Chatbot\AuthController::class, 'showLogin'])->name('chatbot.login');
-        Route::post('/login', [\App\Http\Controllers\Chatbot\AuthController::class, 'login']);
-        Route::get('/register', [\App\Http\Controllers\Chatbot\AuthController::class, 'showRegister'])->name('chatbot.register');
-        Route::post('/register', [\App\Http\Controllers\Chatbot\AuthController::class, 'register']);
-    });
+    // Rutas de autenticación
+    Route::get('/login', [\App\Http\Controllers\Chatbot\AuthController::class, 'showLogin'])->name('chatbot.login');
+    Route::post('/login', [\App\Http\Controllers\Chatbot\AuthController::class, 'login']);
+    Route::get('/register', [\App\Http\Controllers\Chatbot\AuthController::class, 'showRegister'])->name('chatbot.register');
+    Route::post('/register', [\App\Http\Controllers\Chatbot\AuthController::class, 'register']);
 
-    // Logout requiere autenticación
     Route::middleware('auth:chatbot')->group(function () {
         Route::post('/logout', [\App\Http\Controllers\Chatbot\AuthController::class, 'logout'])->name('chatbot.logout');
     });
@@ -66,15 +63,12 @@ Route::domain('paes.maxisolutions.cl')->group(function () {
         Route::get('/materias/{materiaId}/temas', [PreguntaController::class, 'obtenerTemasPorMateria'])->name('paes.api.materias.temas');
     });
 
-    // Rutas de autenticación PAES (login y register solo para invitados)
-    Route::middleware('guest:paes')->group(function () {
-        Route::get('/login', [\App\Http\Controllers\Paes\AuthController::class, 'showLogin'])->name('paes.login');
-        Route::post('/login', [\App\Http\Controllers\Paes\AuthController::class, 'login']);
-        Route::get('/register', [\App\Http\Controllers\Paes\AuthController::class, 'showRegister'])->name('paes.register');
-        Route::post('/register', [\App\Http\Controllers\Paes\AuthController::class, 'register']);
-    });
+    // Rutas de autenticación PAES
+    Route::get('/login', [\App\Http\Controllers\Paes\AuthController::class, 'showLogin'])->name('paes.login');
+    Route::post('/login', [\App\Http\Controllers\Paes\AuthController::class, 'login']);
+    Route::get('/register', [\App\Http\Controllers\Paes\AuthController::class, 'showRegister'])->name('paes.register');
+    Route::post('/register', [\App\Http\Controllers\Paes\AuthController::class, 'register']);
 
-    // Logout requiere autenticación
     Route::middleware('auth:paes')->group(function () {
         Route::post('/logout', [\App\Http\Controllers\Paes\AuthController::class, 'logout'])->name('paes.logout');
     });

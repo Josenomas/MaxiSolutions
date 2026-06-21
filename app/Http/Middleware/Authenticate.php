@@ -15,6 +15,16 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
+            // Detectar si estamos en subdominio chatbot
+            if ($request->getHost() === 'hateachistopher.maxisolutions.cl') {
+                return route('chatbot.login');
+            }
+
+            // Detectar si estamos en subdominio paes
+            if ($request->getHost() === 'paes.maxisolutions.cl') {
+                return route('paes.login');
+            }
+
             return route('login');
         }
     }

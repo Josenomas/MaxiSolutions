@@ -4,7 +4,7 @@
 @section('page-title', 'Dashboard')
 
 @section('content')
-<!-- Estad韘ticas Principales -->
+<!-- Estad锟絪ticas Principales -->
 <div class="row g-4 mb-4">
     <div class="col-6 col-md-4 col-lg-2">
         <div class="card stats-card bg-gradient-primary text-white h-100">
@@ -67,7 +67,75 @@
     </div>
 </div>
 
-<!-- Gr醘icos -->
+<!-- Gesti贸n de Subdominios -->
+@if($chatbotStats || $paesStats)
+<div class="row g-4 mb-4">
+    <div class="col-12">
+        <h5 class="mb-3"><i class="fas fa-network-wired text-primary"></i> Gesti贸n de Subdominios</h5>
+    </div>
+
+    @if($chatbotStats)
+    <div class="col-md-6">
+        <div class="card shadow-sm border-primary">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fas fa-robot"></i> Chatbot (HateaChistopher)</h5>
+            </div>
+            <div class="card-body">
+                <div class="row text-center mb-3">
+                    <div class="col-4">
+                        <h4 class="text-primary mb-0">{{ $chatbotStats['total_usuarios'] }}</h4>
+                        <small class="text-muted">Usuarios</small>
+                    </div>
+                    <div class="col-4">
+                        <h4 class="text-success mb-0">{{ $chatbotStats['total_conversaciones'] }}</h4>
+                        <small class="text-muted">Conversaciones</small>
+                    </div>
+                    <div class="col-4">
+                        <h4 class="text-warning mb-0">{{ $chatbotStats['mensajes_hoy'] }}</h4>
+                        <small class="text-muted">Mensajes Hoy</small>
+                    </div>
+                </div>
+                <hr>
+                <div class="d-grid gap-2">
+                    <a href="{{ route('admin.chatbot.dashboard') }}" class="btn btn-primary">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard Chatbot
+                    </a>
+                    <div class="btn-group">
+                        <a href="{{ route('admin.chatbot.usuarios.index') }}" class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-users"></i> Usuarios
+                        </a>
+                        <a href="{{ route('admin.chatbot.conversaciones.index') }}" class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-comments"></i> Conversaciones
+                        </a>
+                        <a href="{{ route('admin.chatbot.configuracion') }}" class="btn btn-outline-primary btn-sm">
+                            <i class="fas fa-cog"></i> Configuraci贸n
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+
+    @if($paesStats)
+    <div class="col-md-6">
+        <div class="card shadow-sm border-success">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0"><i class="fas fa-graduation-cap"></i> PAES</h5>
+            </div>
+            <div class="card-body">
+                <div class="text-center py-5">
+                    <i class="fas fa-wrench fa-3x text-muted mb-3"></i>
+                    <p class="text-muted">Panel de administraci贸n en desarrollo</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+</div>
+@endif
+
+<!-- Gr锟絝icos -->
 <div class="row g-4 mb-4">
     <!-- Solicitudes por Mes -->
     <div class="col-lg-8">
@@ -167,7 +235,7 @@
         @else
             <div class="text-center py-5 text-muted">
                 <i class="fas fa-inbox fa-4x mb-3 d-block opacity-50"></i>
-                <p class="mb-0">No hay solicitudes a鷑</p>
+                <p class="mb-0">No hay solicitudes a锟絥</p>
             </div>
         @endif
     </div>

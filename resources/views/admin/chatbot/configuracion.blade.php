@@ -56,13 +56,13 @@
                     <div class="mb-3">
                         <label class="form-label">Modelo de IA</label>
                         <select name="modelo_default" class="form-select" required>
-                            <option value="gpt-3.5-turbo" {{ $config['modelo_default'] === 'gpt-3.5-turbo' ? 'selected' : '' }}>GPT-3.5 Turbo</option>
-                            <option value="gpt-4" {{ $config['modelo_default'] === 'gpt-4' ? 'selected' : '' }}>GPT-4</option>
-                            <option value="gpt-4-turbo" {{ $config['modelo_default'] === 'gpt-4-turbo' ? 'selected' : '' }}>GPT-4 Turbo</option>
-                            <option value="claude-3-sonnet" {{ $config['modelo_default'] === 'claude-3-sonnet' ? 'selected' : '' }}>Claude 3 Sonnet</option>
-                            <option value="claude-3-opus" {{ $config['modelo_default'] === 'claude-3-opus' ? 'selected' : '' }}>Claude 3 Opus</option>
+                            <optgroup label="Claude (Anthropic) - Activo ✅">
+                                <option value="claude-3-5-sonnet-20241022" {{ $config['modelo_default'] === 'claude-3-5-sonnet-20241022' ? 'selected' : '' }}>Claude 3.5 Sonnet ⭐ (Recomendado)</option>
+                                <option value="claude-3-5-haiku-20241022" {{ $config['modelo_default'] === 'claude-3-5-haiku-20241022' ? 'selected' : '' }}>Claude 3.5 Haiku (Más rápido y económico)</option>
+                                <option value="claude-3-opus-20240229" {{ $config['modelo_default'] === 'claude-3-opus-20240229' ? 'selected' : '' }}>Claude 3 Opus (Máxima calidad)</option>
+                            </optgroup>
                         </select>
-                        <small class="form-text text-muted">Modelo de IA utilizado para generar respuestas</small>
+                        <small class="form-text text-muted">Modelos de Claude/Anthropic (actualmente integrados con tu API key)</small>
                     </div>
 
                     <div class="mb-3">

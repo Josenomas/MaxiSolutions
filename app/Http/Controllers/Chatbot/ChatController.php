@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Chatbot\Conversacion;
 use App\Models\Chatbot\Mensaje;
 use App\Models\Chatbot\Uso;
+use App\Services\ClaudeService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -39,13 +40,33 @@ class ChatController extends Controller
                 'role' => 'user',
             ]);
 
-            // Simular respuesta del chatbot (SIN IA real)
-            $respuestaBotContenido = "Gracias por tu mensaje. Actualmente soy una versión básica sin IA real implementada. Pronto tendré inteligencia artificial completa para ayudarte mejor.";
+            // Obtener historial de la conversación para contexto
+            $historialMensajes = $conversacion->mensajes()
+                ->where('id', '<', $mensajeUsuario->id) // Solo mensajes anteriores
+                ->orderBy('created_at', 'asc')
+                ->get()
+                ->map(function($msg) {
+                    return [
+                        'role' => $msg->role,
+                        'content' => $msg->contenido
+                    ];
+                })
+                ->toArray();
 
+            // Llamar a Claude AI
+            $claudeService = new ClaudeService();
+            $respuestaIA = $claudeService->enviarMensaje($historialMensajes, $request->mensaje);
+
+            // Guardar respuesta del bot
             $mensajeBot = Mensaje::create([
                 'conversacion_id' => $conversacion->id,
-                'contenido' => $respuestaBotContenido,
+                'contenido' => $respuestaIA['contenido'],
                 'role' => 'assistant',
+                'metadata' => [
+                    'tokens_usados' => $respuestaIA['tokens_usados'],
+                    'error' => $respuestaIA['error'],
+                    'timestamp' => now()->toIso8601String(),
+                ]
             ]);
 
             // Actualizar estadísticas de uso
@@ -60,6 +81,7 @@ class ChatController extends Controller
                 ]
             );
             $uso->increment('mensajes_enviados');
+            $uso->increment('tokens_usados', $respuestaIA['tokens_usados']);
 
             // Actualizar timestamp de conversación
             $conversacion->touch();

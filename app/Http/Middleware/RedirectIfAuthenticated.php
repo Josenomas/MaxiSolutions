@@ -23,6 +23,16 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+                // Redirigir según el guard usado
+                if ($guard === 'chatbot') {
+                    return redirect()->route('chatbot.dashboard');
+                }
+
+                if ($guard === 'paes') {
+                    return redirect()->route('paes.dashboard');
+                }
+
+                // Por defecto, usar la ruta HOME del dominio principal
                 return redirect(RouteServiceProvider::HOME);
             }
         }

@@ -34,15 +34,31 @@ class SecurityHeaders
         $response->headers->set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
 
         // Content-Security-Policy: Previene XSS y otros ataques de inyección
-        $csp = [
-            "default-src 'self'",
-            "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com",
-            "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com",
-            "font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com data:",
-            "img-src 'self' data: https:",
-            "connect-src 'self' https://api.anthropic.com https://hateachistopher.maxisolutions.cl https://maxisolutions.cl https://www.maxisolutions.cl",
-            "frame-ancestors 'none'",
-        ];
+        // TEMPORAL: CSP más permisivo para chatbot
+        $host = $request->getHost();
+        if (str_contains($host, 'hateachistopher')) {
+            // CSP relajado para chatbot
+            $csp = [
+                "default-src 'self'",
+                "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+                "style-src 'self' 'unsafe-inline'",
+                "font-src 'self' data:",
+                "img-src 'self' data: https:",
+                "connect-src 'self' https://api.anthropic.com",
+                "frame-ancestors 'none'",
+            ];
+        } else {
+            // CSP normal para otros subdominios
+            $csp = [
+                "default-src 'self'",
+                "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com",
+                "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com",
+                "font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com data:",
+                "img-src 'self' data: https:",
+                "connect-src 'self'",
+                "frame-ancestors 'none'",
+            ];
+        }
         $response->headers->set('Content-Security-Policy', implode('; ', $csp));
 
         // Strict-Transport-Security: Fuerza HTTPS (solo si estás usando HTTPS en producción)

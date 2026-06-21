@@ -22,8 +22,16 @@ class Mensaje extends Model
         'metadata' => 'array',
     ];
 
+    protected $appends = ['es_usuario'];
+
     public function conversacion()
     {
         return $this->belongsTo(Conversacion::class, 'conversacion_id');
+    }
+
+    // Accessor para compatibilidad con el frontend
+    public function getEsUsuarioAttribute()
+    {
+        return $this->role === 'user';
     }
 }

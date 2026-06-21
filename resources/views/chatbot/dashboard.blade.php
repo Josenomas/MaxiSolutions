@@ -135,7 +135,7 @@
             })
             .then(res => res.json())
             .then(data => {
-                conversacionActual = data.conversacion_id;
+                conversacionActual = data.conversacion.id;
                 document.getElementById('chatMessages').innerHTML = `
                     <div class="empty-state">
                         <div class="empty-state-icon">✨</div>
@@ -151,14 +151,16 @@
 
         function cargarConversacion(id) {
             conversacionActual = id;
-            fetch(`{{ url('/app/api/conversacion') }}/${id}`)
+            fetch(`{{ route('chatbot.api.conversacion', '') }}/${id}`)
             .then(res => res.json())
             .then(data => {
                 const messagesDiv = document.getElementById('chatMessages');
                 messagesDiv.innerHTML = '';
-                data.mensajes.forEach(msg => {
-                    agregarMensajeAlChat(msg.contenido, msg.es_usuario);
-                });
+                if (data.conversacion && data.conversacion.mensajes) {
+                    data.conversacion.mensajes.forEach(msg => {
+                        agregarMensajeAlChat(msg.contenido, msg.es_usuario);
+                    });
+                }
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
             });
         }
@@ -203,8 +205,8 @@
             })
             .then(res => res.json())
             .then(data => {
-                if (data.respuesta) {
-                    agregarMensajeAlChat(data.respuesta, false);
+                if (data.mensaje_bot && data.mensaje_bot.contenido) {
+                    agregarMensajeAlChat(data.mensaje_bot.contenido, false);
                 }
                 document.getElementById('sendBtn').disabled = false;
                 document.getElementById('messageInput').focus();

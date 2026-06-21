@@ -10,25 +10,17 @@ class ChatbotController extends Controller
     public function dashboard()
     {
         $user = Auth::guard('chatbot')->user();
-        
-        $conversaciones = $user->conversaciones()
+
+        $conversacionesRecientes = $user->conversaciones()
             ->with('ultimoMensaje')
             ->orderBy('updated_at', 'desc')
-            ->take(5)
+            ->take(10)
             ->get();
-        
+
         $totalConversaciones = $user->conversaciones()->count();
-        $mensajesHoy = $user->uso()->whereDate('fecha', today())->sum('mensajes_enviados');
-        $mensajesRestantes = $user->getMensajesRestantesHoy();
-        
-        $stats = [
-            'total_conversaciones' => $totalConversaciones,
-            'mensajes_hoy' => $mensajesHoy,
-            'mensajes_restantes' => $mensajesRestantes,
-            'limite_mensajes' => $user->getLimiteMensajes(),
-        ];
-        
-        return view('chatbot.dashboard', compact('user', 'conversaciones', 'stats'));
+        $roastsDisponibles = $user->getMensajesRestantesHoy();
+
+        return view('chatbot.dashboard', compact('user', 'conversacionesRecientes', 'totalConversaciones', 'roastsDisponibles'));
     }
 
     public function chat($conversacionId = null)

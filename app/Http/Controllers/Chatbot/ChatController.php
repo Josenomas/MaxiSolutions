@@ -36,27 +36,27 @@ class ChatController extends Controller
             $mensajeUsuario = Mensaje::create([
                 'conversacion_id' => $conversacion->id,
                 'contenido' => $request->mensaje,
-                'es_usuario' => true,
+                'role' => 'user',
             ]);
 
             // Simular respuesta del chatbot (SIN IA real)
             $respuestaBotContenido = "Gracias por tu mensaje. Actualmente soy una versión básica sin IA real implementada. Pronto tendré inteligencia artificial completa para ayudarte mejor.";
-            
+
             $mensajeBot = Mensaje::create([
                 'conversacion_id' => $conversacion->id,
                 'contenido' => $respuestaBotContenido,
-                'es_usuario' => false,
+                'role' => 'assistant',
             ]);
 
             // Actualizar estadísticas de uso
             $uso = Uso::firstOrCreate(
                 [
-                    'chatbot_user_id' => $user->id,
+                    'user_id' => $user->id,
                     'fecha' => today(),
                 ],
                 [
                     'mensajes_enviados' => 0,
-                    'conversaciones_creadas' => 0,
+                    'tokens_usados' => 0,
                 ]
             );
             $uso->increment('mensajes_enviados');
@@ -107,15 +107,15 @@ class ChatController extends Controller
             // Actualizar estadísticas de uso
             $uso = Uso::firstOrCreate(
                 [
-                    'chatbot_user_id' => $user->id,
+                    'user_id' => $user->id,
                     'fecha' => today(),
                 ],
                 [
                     'mensajes_enviados' => 0,
-                    'conversaciones_creadas' => 0,
+                    'tokens_usados' => 0,
                 ]
             );
-            $uso->increment('conversaciones_creadas');
+            $uso->increment('mensajes_enviados');
 
             DB::commit();
 

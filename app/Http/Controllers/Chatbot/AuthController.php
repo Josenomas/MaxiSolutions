@@ -36,8 +36,17 @@ class AuthController extends Controller
         $user = ChatbotUser::where('email', $request->email)->first();
 
         if ($user && Hash::check($request->password, $user->password)) {
-            // Login manual del usuario
+            // Login manual del usuario SIN regenerar sesión
+            // Guardar el session ID actual ANTES del login
+            $currentSessionId = session()->getId();
+
             Auth::guard('chatbot')->login($user, $request->filled('remember'));
+
+            // Si la sesión cambió, restaurar el ID original
+            if (session()->getId() !== $currentSessionId) {
+                session()->setId($currentSessionId);
+                session()->start();
+            }
 
             \Log::info('Chatbot Login Success (Manual)', [
                 'user_id' => Auth::guard('chatbot')->id(),

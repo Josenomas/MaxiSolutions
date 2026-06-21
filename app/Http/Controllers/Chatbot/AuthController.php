@@ -32,11 +32,14 @@ class AuthController extends Controller
             'host' => $request->getHost(),
         ]);
 
-        if (Auth::guard('chatbot')->attempt($request->only('email', 'password'), $request->filled('remember'))) {
-            // NO regenerar sesión para diagnosticar problema
-            // $request->session()->regenerate();
+        // Login MANUAL sin attempt() para evitar regeneración automática de sesión
+        $user = ChatbotUser::where('email', $request->email)->first();
 
-            \Log::info('Chatbot Login Success', [
+        if ($user && Hash::check($request->password, $user->password)) {
+            // Login manual del usuario
+            Auth::guard('chatbot')->login($user, $request->filled('remember'));
+
+            \Log::info('Chatbot Login Success (Manual)', [
                 'user_id' => Auth::guard('chatbot')->id(),
                 'session_id_after' => session()->getId(),
                 'guard_check_after' => Auth::guard('chatbot')->check(),

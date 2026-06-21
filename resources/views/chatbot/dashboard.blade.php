@@ -126,7 +126,7 @@
         let conversacionActual = null;
 
         function nuevaConversacion() {
-            fetch("{{ route('chatbot.api.nueva-conversacion') }}", {
+            return fetch("{{ route('chatbot.api.nueva-conversacion') }}", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -141,18 +141,19 @@
                         <div class="empty-state">
                             <div class="empty-state-icon">✨</div>
                             <h3>Nueva conversación iniciada</h3>
-                            <p>Escribe tu primer mensaje</p>
+                            <p>¡Listo para conversar!</p>
                         </div>
                     `;
-                    document.getElementById('messageInput').focus();
+                    return conversacionActual;
                 } else {
                     console.error('Error al crear conversación:', data);
-                    alert('Error al crear conversación. Por favor, recarga la página.');
+                    throw new Error('Error al crear conversación');
                 }
             })
             .catch(error => {
                 console.error('Error en nuevaConversacion:', error);
-                alert('Error de conexión. Por favor, verifica tu conexión a internet.');
+                alert('❌ Error al crear conversación. Por favor, recarga la página.');
+                throw error;
             });
         }
 
@@ -179,16 +180,22 @@
 
             const sendBtn = document.getElementById('sendBtn');
             sendBtn.disabled = true;
+            input.value = '';  // Limpiar input inmediatamente
 
-            // Si no hay conversación activa, crear una
+            // Si no hay conversación activa, crear una primero
             if (!conversacionActual) {
-                nuevaConversacion();
-                setTimeout(() => enviarMensajeReal(mensaje), 1500);
+                nuevaConversacion()
+                    .then(() => {
+                        // Conversación creada exitosamente, ahora enviar mensaje
+                        enviarMensajeReal(mensaje);
+                    })
+                    .catch(() => {
+                        // Error al crear conversación
+                        sendBtn.disabled = false;
+                    });
             } else {
                 enviarMensajeReal(mensaje);
             }
-
-            input.value = '';
         }
 
         function enviarMensajeReal(mensaje) {

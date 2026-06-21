@@ -40,7 +40,7 @@ class SecurityHeaders
             "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com",
             "font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com data:",
             "img-src 'self' data: https:",
-            "connect-src 'self'",
+            "connect-src 'self' https://api.anthropic.com https://*.maxisolutions.cl",
             "frame-ancestors 'none'",
         ];
         $response->headers->set('Content-Security-Policy', implode('; ', $csp));

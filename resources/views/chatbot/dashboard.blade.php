@@ -135,17 +135,24 @@
             })
             .then(res => res.json())
             .then(data => {
-                conversacionActual = data.conversacion.id;
-                document.getElementById('chatMessages').innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-state-icon">✨</div>
-                        <h3>Nueva conversación iniciada</h3>
-                        <p>Escribe tu primer mensaje</p>
-                    </div>
-                `;
-                document.getElementById('messageInput').focus();
-                // Recargar para actualizar sidebar
-                setTimeout(() => location.reload(), 1000);
+                if (data.success && data.conversacion) {
+                    conversacionActual = data.conversacion.id;
+                    document.getElementById('chatMessages').innerHTML = `
+                        <div class="empty-state">
+                            <div class="empty-state-icon">✨</div>
+                            <h3>Nueva conversación iniciada</h3>
+                            <p>Escribe tu primer mensaje</p>
+                        </div>
+                    `;
+                    document.getElementById('messageInput').focus();
+                } else {
+                    console.error('Error al crear conversación:', data);
+                    alert('Error al crear conversación. Por favor, recarga la página.');
+                }
+            })
+            .catch(error => {
+                console.error('Error en nuevaConversacion:', error);
+                alert('Error de conexión. Por favor, verifica tu conexión a internet.');
             });
         }
 
@@ -203,16 +210,35 @@
                     mensaje: mensaje
                 })
             })
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                return res.json();
+            })
             .then(data => {
-                if (data.mensaje_bot && data.mensaje_bot.contenido) {
+                if (data.error) {
+                    agregarMensajeAlChat('❌ ' + data.error, false);
+                } else if (data.mensaje_bot && data.mensaje_bot.contenido) {
                     agregarMensajeAlChat(data.mensaje_bot.contenido, false);
+
+                    // Actualizar contador de mensajes restantes si existe
+                    if (data.mensajes_restantes !== undefined) {
+                        const roastsElement = document.querySelector('.chat-stats span:first-child');
+                        if (roastsElement) {
+                            roastsElement.textContent = `📊 ${data.mensajes_restantes} roasts disponibles`;
+                        }
+                    }
+                } else {
+                    agregarMensajeAlChat('❌ Respuesta inesperada del servidor', false);
+                    console.error('Respuesta inesperada:', data);
                 }
                 document.getElementById('sendBtn').disabled = false;
                 document.getElementById('messageInput').focus();
             })
-            .catch(() => {
-                agregarMensajeAlChat('Error al enviar mensaje. Intenta de nuevo.', false);
+            .catch((error) => {
+                console.error('Error en enviarMensajeReal:', error);
+                agregarMensajeAlChat('❌ Error al enviar mensaje. Intenta de nuevo.', false);
                 document.getElementById('sendBtn').disabled = false;
             });
         }

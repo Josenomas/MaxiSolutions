@@ -18,5 +18,7 @@ class VerifyCsrfToken extends Middleware
         '/pago/flow/debug',
         '/flow-test',
         'pago/flow/*',  // Wildcard para todas las rutas de Flow
+        '/login',  // TEMPORAL: Deshabilitar CSRF para diagnosticar
+        '/register',  // TEMPORAL: Deshabilitar CSRF para diagnosticar
     ];
 }

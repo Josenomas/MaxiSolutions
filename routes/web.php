@@ -4,75 +4,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SolicitudController;
 use App\Http\Controllers\ProductoController;
-use App\Http\Controllers\Paes\PreguntaController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NuevoMensajeMail;
 use App\Mail\CambioEstadoMail;
 use App\Mail\PagoRecibidoMail;
-
-
-// ========================================
-// RUTAS SUBDOMINIO CHATBOT
-// ========================================
-Route::domain('hateachistopher.maxisolutions.cl')->group(function () {
-    Route::get('/', [\App\Http\Controllers\Chatbot\ChatbotHomeController::class, 'landing'])->name('chatbot.home');
-
-    Route::middleware(['auth:chatbot'])->prefix('app')->group(function () {
-        Route::get('/', [\App\Http\Controllers\Chatbot\ChatbotController::class, 'dashboard'])->name('chatbot.dashboard');
-        Route::get('/chat/{conversacionId?}', [\App\Http\Controllers\Chatbot\ChatbotController::class, 'chat'])->name('chatbot.chat');
-    });
-
-    Route::middleware(['auth:chatbot'])->prefix('app/api')->group(function () {
-        Route::post('/enviar-mensaje', [\App\Http\Controllers\Chatbot\ChatController::class, 'enviarMensaje'])->name('chatbot.api.enviar-mensaje');
-        Route::post('/nueva-conversacion', [\App\Http\Controllers\Chatbot\ChatController::class, 'nuevaConversacion'])->name('chatbot.api.nueva-conversacion');
-        Route::get('/conversacion/{id}', [\App\Http\Controllers\Chatbot\ChatController::class, 'obtenerConversacion'])->name('chatbot.api.conversacion');
-    });
-
-    // Rutas de autenticación
-    Route::get('/login', [\App\Http\Controllers\Chatbot\AuthController::class, 'showLogin'])->name('chatbot.login');
-    Route::post('/login', [\App\Http\Controllers\Chatbot\AuthController::class, 'login']);
-    Route::get('/register', [\App\Http\Controllers\Chatbot\AuthController::class, 'showRegister'])->name('chatbot.register');
-    Route::post('/register', [\App\Http\Controllers\Chatbot\AuthController::class, 'register']);
-
-    Route::middleware('auth:chatbot')->group(function () {
-        Route::post('/logout', [\App\Http\Controllers\Chatbot\AuthController::class, 'logout'])->name('chatbot.logout');
-    });
-});
-// ========================================
-// RUTAS SUBDOMINIO PAES
-// ========================================
-Route::domain('paes.maxisolutions.cl')->group(function () {
-    // Landing page pública
-    Route::get('/', [\App\Http\Controllers\Paes\PaesHomeController::class, 'landing'])->name('paes.home');
-
-    // Rutas autenticadas (dashboard en /app)
-    Route::middleware(['auth:paes'])->prefix('app')->group(function () {
-        Route::get('/', [\App\Http\Controllers\Paes\PaesController::class, 'dashboard'])->name('paes.dashboard');
-        Route::get('/practica', [\App\Http\Controllers\Paes\PaesController::class, 'practica'])->name('paes.practica');
-        Route::get('/simulador', [\App\Http\Controllers\Paes\PaesController::class, 'simulador'])->name('paes.simulador');
-        Route::get('/estadisticas', [\App\Http\Controllers\Paes\PaesController::class, 'estadisticas'])->name('paes.estadisticas');
-    });
-
-
-    // API de práctica de preguntas
-    Route::middleware(['auth:paes'])->prefix('app/api')->group(function () {
-        Route::post('/preguntas/iniciar', [PreguntaController::class, 'iniciarPractica'])->name('paes.api.preguntas.iniciar');
-        Route::post('/preguntas/responder', [PreguntaController::class, 'responder'])->name('paes.api.preguntas.responder');
-        Route::post('/sesion/{sesionId}/finalizar', [PreguntaController::class, 'finalizarSesion'])->name('paes.api.sesion.finalizar');
-        Route::get('/materias/{materiaId}/temas', [PreguntaController::class, 'obtenerTemasPorMateria'])->name('paes.api.materias.temas');
-    });
-
-    // Rutas de autenticación PAES
-    Route::get('/login', [\App\Http\Controllers\Paes\AuthController::class, 'showLogin'])->name('paes.login');
-    Route::post('/login', [\App\Http\Controllers\Paes\AuthController::class, 'login']);
-    Route::get('/register', [\App\Http\Controllers\Paes\AuthController::class, 'showRegister'])->name('paes.register');
-    Route::post('/register', [\App\Http\Controllers\Paes\AuthController::class, 'register']);
-
-    Route::middleware('auth:paes')->group(function () {
-        Route::post('/logout', [\App\Http\Controllers\Paes\AuthController::class, 'logout'])->name('paes.logout');
-    });
-});
 
 // Rutas públicas
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -84,7 +20,6 @@ Route::get('/producto/{slug}', [ProductoController::class, 'acceder'])->name('pr
 // Solicitudes/Cotizaciones
 Route::get('/solicitud/crear', [SolicitudController::class, 'create'])->name('solicitud.create');
 Route::post('/solicitud', [SolicitudController::class, 'store'])->name('solicitud.store');
-
 // Dashboard (requiere autenticación)
 Route::get('/dashboard', function () {
     // Redirigir admins al dashboard de admin
@@ -336,31 +271,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         return redirect()->route('admin.mensajes.show', $usuario)->with('success', 'Mensaje enviado');
     })->name('mensajes.reply')->middleware('throttle:20,1');
 
-    // ========================================
-    // GESTIÓN ADMIN - CHATBOT
-    // ========================================
-    Route::prefix('chatbot')->name('chatbot.')->group(function () {
-        Route::get('/dashboard', [\App\Http\Controllers\Admin\Chatbot\ChatbotDashboardController::class, 'index'])->name('dashboard');
-
-        // Gestión de usuarios del chatbot
-        Route::resource('usuarios', \App\Http\Controllers\Admin\Chatbot\ChatbotUsuariosController::class)->only(['index', 'show', 'update', 'destroy']);
-
-        // Gestión de conversaciones
-        Route::resource('conversaciones', \App\Http\Controllers\Admin\Chatbot\ChatbotConversacionesController::class)->only(['index', 'show', 'destroy']);
-
-        // Configuración global del chatbot
-        Route::get('/configuracion', [\App\Http\Controllers\Admin\Chatbot\ChatbotConfiguracionController::class, 'index'])->name('configuracion');
-        Route::put('/configuracion', [\App\Http\Controllers\Admin\Chatbot\ChatbotConfiguracionController::class, 'update'])->name('configuracion.update');
-    });
-
-    // ========================================
-    // GESTIÓN ADMIN - PAES (pendiente de implementar)
-    // ========================================
-    Route::prefix('paes')->name('paes.')->group(function () {
-        // TODO: Implementar rutas admin PAES
-    });
-
 });
+
 
 require __DIR__.'/auth.php';
 

@@ -28,16 +28,22 @@ class AuthController extends Controller
             'email' => $request->email,
             'session_id_before' => session()->getId(),
             'guard_check_before' => Auth::guard('chatbot')->check(),
+            'cookies_received' => $request->cookies->all(),
+            'host' => $request->getHost(),
         ]);
 
         if (Auth::guard('chatbot')->attempt($request->only('email', 'password'), $request->filled('remember'))) {
-            $request->session()->regenerate();
+            // NO regenerar sesión para diagnosticar problema
+            // $request->session()->regenerate();
 
             \Log::info('Chatbot Login Success', [
                 'user_id' => Auth::guard('chatbot')->id(),
                 'session_id_after' => session()->getId(),
                 'guard_check_after' => Auth::guard('chatbot')->check(),
                 'session_data' => session()->all(),
+                'session_name' => config('session.cookie'),
+                'session_domain' => config('session.domain'),
+                'session_secure' => config('session.secure'),
             ]);
 
             return redirect()->intended(route('chatbot.dashboard'));
@@ -84,6 +90,8 @@ class AuthController extends Controller
         ]);
 
         Auth::guard('chatbot')->login($user);
+        // NO regenerar sesión para evitar problemas
+        // $request->session()->regenerate();
 
         return redirect()->route('chatbot.dashboard')->with('success', 'Bienvenido a HateaChistopher!');
     }

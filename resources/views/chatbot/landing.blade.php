@@ -191,59 +191,7 @@
       <div class="col-12 col-sm-6 col-lg-3 reveal">
         <div class="ms-card h-100">
           <h5>Gratuito</h5>
-          <p class="ms-price ms-grad-text mb-1"><!-- ======================== PRODUCTOS SAAS ======================== -->
-<section id="portafolio" class="ms-section" style="background:var(--ms-bg-alt)" data-screen-label="Productos">
-  <div class="container">
-    <div class="text-center mb-5 reveal">
-      <span class="ms-eyebrow">Plataformas SaaS</span>
-      <h2 class="mt-2 mb-3">Nuestros <span class="ms-grad-text">productos</span></h2>
-      <p class="sub">Soluciones digitales listas para usar. Accede a potentes plataformas diseñadas para tu crecimiento.</p>
-    </div>
-    <div class="row g-4 justify-content-center">
-      @forelse($productos as $producto)
-        <div class="col-12 col-sm-6 col-md-4 reveal">
-          <a href="{{ $producto->url_base }}" target="_blank" class="text-decoration-none">
-            <div class="ms-card h-100 hover-lift" style="cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;">
-              <div class="ms-ico" style="font-size: 3rem;">
-                <i class="fas {{ $producto->icono }}"></i>
-              </div>
-              <h5>{{ $producto->nombre }}</h5>
-              <p class="desc">{{ $producto->descripcion }}</p>
-
-              @if($producto->planes->count() > 0)
-                <div class="mt-3">
-                  @php
-                    $planMinimo = $producto->planes->where('precio_mensual', '>', 0)->sortBy('precio_mensual')->first();
-                  @endphp
-                  @if($planMinimo)
-                    <p class="ms-price ms-grad-text mb-1">${{ number_format($planMinimo->precio_mensual, 0, ',', '.') }} <span>/ mes</span></p>
-                  @else
-                    <p class="ms-price ms-grad-text mb-1">Gratis <span>para empezar</span></p>
-                  @endif
-                </div>
-              @endif
-
-              <div class="mt-3">
-                <span class="ms-link">Acceder <i class="fas fa-arrow-right"></i></span>
-              </div>
-            </div>
-          </a>
-        </div>
-      @empty
-        <div class="col-12 text-center py-5">
-          <p class="text-muted">Próximamente nuevos productos SaaS...</p>
-        </div>
-      @endforelse
-    </div>
-  </div>
-</section>
-
-<style>
-.hover-lift:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 40px rgba(102, 126, 234, 0.3) !important;
-}
-</style> <span>/ mes</span></p>
+          <p class="ms-price ms-grad-text mb-1">$0 <span>/ mes</span></p>
           <p class="desc mb-4">Para empezar a molestar</p>
           <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem;">
             <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> 50 roasts/día</li>
@@ -259,7 +207,7 @@
       <div class="col-12 col-sm-6 col-lg-3 reveal">
         <div class="ms-card h-100">
           <h5>Básico</h5>
-          <p class="ms-price ms-grad-text mb-1">.990 <span>/ mes</span></p>
+          <p class="ms-price ms-grad-text mb-1">$4.990 <span>/ mes</span></p>
           <p class="desc mb-4">Para haters serios</p>
           <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem;">
             <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> 500 roasts/día</li>
@@ -276,7 +224,7 @@
         <div class="ms-card h-100" style="border: 2px solid var(--ms-grad-from); position: relative;">
           <span class="ms-ribbon">Recomendado</span>
           <h5>Premium</h5>
-          <p class="ms-price ms-grad-text mb-1">.990 <span>/ mes</span></p>
+          <p class="ms-price ms-grad-text mb-1">$9.990 <span>/ mes</span></p>
           <p class="desc mb-4">Hate ilimitado</p>
           <ul style="list-style: none; padding: 0; margin-bottom: 1.5rem;">
             <li style="margin-bottom: 0.5rem;"><i class="fas fa-check" style="color: #667eea; margin-right: 8px;"></i> Roasts ilimitados</li>

@@ -14,7 +14,9 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // Estadísticas generales
+        $user = auth()->user();
+
+        // Estadísticas generales del dominio principal
         $stats = [
             'total_servicios' => Servicio::count(),
             'total_solicitudes' => Solicitud::count(),
@@ -25,6 +27,22 @@ class DashboardController extends Controller
                 ->whereMonth('created_at', date('m'))
                 ->sum('monto'),
         ];
+
+        // Estadísticas de subdominios (si tiene permisos)
+        $chatbotStats = null;
+        if ($user->canAccessChatbot()) {
+            $chatbotStats = [
+                'total_usuarios' => \App\Models\Chatbot\ChatbotUser::count(),
+                'total_conversaciones' => \App\Models\Chatbot\Conversacion::count(),
+                'mensajes_hoy' => \App\Models\Chatbot\Mensaje::whereDate('created_at', today())->count(),
+            ];
+        }
+
+        $paesStats = null;
+        if ($user->canAccessPaes()) {
+            // TODO: Agregar stats PAES cuando estén implementados
+            $paesStats = [];
+        }
 
         // Solicitudes recientes
         $solicitudes_recientes = Solicitud::with('servicio')
@@ -70,7 +88,9 @@ class DashboardController extends Controller
             'solicitudesPorMes',
             'solicitudesPorEstado',
             'ingresosPorMes',
-            'serviciosMasSolicitados'
+            'serviciosMasSolicitados',
+            'chatbotStats',
+            'paesStats'
         ));
     }
 }

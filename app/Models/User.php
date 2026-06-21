@@ -16,6 +16,7 @@ class User extends Authenticatable
         'email',
         'password',
         'tipo_usuario',
+        'admin_role',
     ];
 
     protected $hidden = [
@@ -40,5 +41,30 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->tipo_usuario === 'admin';
+    }
+
+    public function isSuperAdmin()
+    {
+        return $this->admin_role === 'super_admin';
+    }
+
+    public function canAccessChatbot()
+    {
+        return in_array($this->admin_role, ['super_admin', 'admin_chatbot']);
+    }
+
+    public function canAccessPaes()
+    {
+        return in_array($this->admin_role, ['super_admin', 'admin_paes']);
+    }
+
+    public function canAccessPrincipal()
+    {
+        return in_array($this->admin_role, ['super_admin', 'admin_principal']);
+    }
+
+    public function hasAdminRole()
+    {
+        return $this->isAdmin() && !is_null($this->admin_role);
     }
 }

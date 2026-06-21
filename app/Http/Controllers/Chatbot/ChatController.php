@@ -126,19 +126,6 @@ class ChatController extends Controller
                 'activa' => true,
             ]);
 
-            // Actualizar estadísticas de uso
-            $uso = Uso::firstOrCreate(
-                [
-                    'user_id' => $user->id,
-                    'fecha' => today(),
-                ],
-                [
-                    'mensajes_enviados' => 0,
-                    'tokens_usados' => 0,
-                ]
-            );
-            $uso->increment('mensajes_enviados');
-
             DB::commit();
 
             return response()->json([
@@ -147,7 +134,10 @@ class ChatController extends Controller
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['error' => 'Error al crear conversación'], 500);
+            \Log::error('Error al crear conversación: ' . $e->getMessage());
+            return response()->json([
+                'error' => 'Error al crear conversación: ' . $e->getMessage()
+            ], 500);
         }
     }
 }

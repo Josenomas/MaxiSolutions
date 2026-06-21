@@ -133,7 +133,14 @@
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 }
             })
-            .then(res => res.json())
+            .then(async res => {
+                const data = await res.json();
+                if (!res.ok) {
+                    console.error('Error en nueva conversación:', data);
+                    throw new Error(data.error || 'Error al crear conversación');
+                }
+                return data;
+            })
             .then(data => {
                 if (data.success && data.conversacion) {
                     conversacionActual = data.conversacion.id;
@@ -147,12 +154,12 @@
                     return conversacionActual;
                 } else {
                     console.error('Error al crear conversación:', data);
-                    throw new Error('Error al crear conversación');
+                    throw new Error(data.error || 'Error al crear conversación');
                 }
             })
             .catch(error => {
                 console.error('Error en nuevaConversacion:', error);
-                alert('❌ Error al crear conversación. Por favor, recarga la página.');
+                alert('❌ ' + error.message);
                 throw error;
             });
         }

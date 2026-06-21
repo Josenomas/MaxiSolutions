@@ -99,7 +99,7 @@ class ChatController extends Controller
         DB::beginTransaction();
         try {
             $conversacion = Conversacion::create([
-                'chatbot_user_id' => $user->id,
+                'user_id' => $user->id,
                 'titulo' => $request->titulo ?? 'Nueva conversación',
                 'activa' => true,
             ]);

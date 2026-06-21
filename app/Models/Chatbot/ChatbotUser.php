@@ -48,9 +48,10 @@ class ChatbotUser extends Authenticatable
 
     public function puedeEnviarMensaje()
     {
+        // Leer límites desde configuración del admin (Cache)
         $limites = [
-            'gratuito' => 50,
-            'basico' => 500,
+            'gratuito' => \Cache::get('chatbot.limite_gratuito', 50),
+            'basico' => \Cache::get('chatbot.limite_basico', 500),
             'premium' => PHP_INT_MAX,
         ];
 
@@ -58,18 +59,19 @@ class ChatbotUser extends Authenticatable
             ->whereDate('fecha', today())
             ->first();
 
-        $limite = $limites[$this->plan] ?? 50;
+        $limite = $limites[$this->plan] ?? \Cache::get('chatbot.limite_gratuito', 50);
 
         return !$mensajesHoy || $mensajesHoy->mensajes_enviados < $limite;
     }
 
     public function getLimiteMensajes()
     {
+        // Leer límites desde configuración del admin (Cache)
         return match($this->plan) {
-            'gratuito' => 50,
-            'basico' => 500,
+            'gratuito' => \Cache::get('chatbot.limite_gratuito', 50),
+            'basico' => \Cache::get('chatbot.limite_basico', 500),
             'premium' => 'Ilimitado',
-            default => 50,
+            default => \Cache::get('chatbot.limite_gratuito', 50),
         };
     }
 

@@ -37,14 +37,14 @@ class SecurityHeaders
         // TEMPORAL: CSP más permisivo para chatbot
         $host = $request->getHost();
         if (str_contains($host, 'hateachistopher')) {
-            // CSP relajado para chatbot
+            // CSP relajado para chatbot - permite recursos externos necesarios
             $csp = [
                 "default-src 'self'",
-                "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
-                "style-src 'self' 'unsafe-inline'",
-                "font-src 'self' data:",
+                "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com",
+                "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+                "font-src 'self' data: https://fonts.gstatic.com",
                 "img-src 'self' data: https:",
-                "connect-src 'self' https://api.anthropic.com https://hateachistopher.maxisolutions.cl",
+                "connect-src 'self' https://api.anthropic.com https://hateachistopher.maxisolutions.cl http://hateachistopher.maxisolutions.cl",
                 "frame-ancestors 'none'",
             ];
         } else {

@@ -59,17 +59,33 @@ class ClaudeService
         ];
 
         try {
-            // Llamar a la API de Claude
-            $response = Http::withHeaders([
-                'x-api-key' => $this->apiKey,
-                'anthropic-version' => '2023-06-01',
-                'content-type' => 'application/json',
-            ])->timeout(30)->post($this->apiUrl, [
-                'model' => $modelo,
-                'max_tokens' => $maxTokens,
-                'system' => $systemPrompt,
-                'messages' => $messages,
-            ]);
+            // Llamar a la API de Claude con retry en caso de sobrecarga (529)
+            $maxRetries = 3;
+            $retryDelay = 2; // segundos
+            $attempt = 0;
+
+            do {
+                $response = Http::withHeaders([
+                    'x-api-key' => $this->apiKey,
+                    'anthropic-version' => '2023-06-01',
+                    'content-type' => 'application/json',
+                ])->timeout(30)->post($this->apiUrl, [
+                    'model' => $modelo,
+                    'max_tokens' => $maxTokens,
+                    'system' => $systemPrompt,
+                    'messages' => $messages,
+                ]);
+
+                $attempt++;
+
+                // Si es 529 (Overloaded) y quedan intentos, esperar y reintentar
+                if ($response->status() === 529 && $attempt < $maxRetries) {
+                    sleep($retryDelay);
+                    continue;
+                }
+
+                break;
+            } while ($attempt < $maxRetries);
 
             if ($response->successful()) {
                 $data = $response->json();

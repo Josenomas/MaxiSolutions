@@ -67,7 +67,6 @@ class ClaudeService
             ])->timeout(30)->post($this->apiUrl, [
                 'model' => $modelo,
                 'max_tokens' => $maxTokens,
-                'temperature' => $temperatura,
                 'system' => $systemPrompt,
                 'messages' => $messages,
             ]);

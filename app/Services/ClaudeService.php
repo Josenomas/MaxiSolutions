@@ -35,9 +35,9 @@ class ClaudeService
         }
 
         // Leer configuración del admin
-        $modelo = Cache::get('chatbot.modelo_default', 'claude-3-5-sonnet-20241022');
+        $modelo = Cache::get('chatbot.modelo_default', 'claude-3-5-sonnet-20240620');
         $temperatura = (float) Cache::get('chatbot.temperatura_default', 0.7);
-        $maxTokens = (int) Cache::get('chatbot.max_tokens_default', 500);
+        $maxTokens = (int) Cache::get('chatbot.max_tokens_default', 4096);
         $systemPrompt = Cache::get('chatbot.system_prompt', 'Eres un asistente virtual útil y amigable.');
 
         // Construir array de mensajes

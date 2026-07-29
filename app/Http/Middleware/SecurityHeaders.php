@@ -44,7 +44,7 @@ class SecurityHeaders
                 "style-src 'self' 'unsafe-inline'",
                 "font-src 'self' data:",
                 "img-src 'self' data: https:",
-                "connect-src 'self' https://api.anthropic.com",
+                "connect-src 'self' https://api.anthropic.com https://hateachistopher.maxisolutions.cl",
                 "frame-ancestors 'none'",
             ];
         } else {

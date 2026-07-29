@@ -61,7 +61,7 @@
                 </ul>
               </div>
             @else
-              <a href="{{ route('login') }}" class="ms-btn ms-btn-ghost py-2 px-3 d-none d-lg-inline-flex">Login</a>
+              <a href="{{ route('login') }}" class="ms-btn ms-btn-blue py-2 px-3 d-none d-lg-inline-flex">Login</a>
             @endauth
 
             <!-- Mobile Menu Toggle -->

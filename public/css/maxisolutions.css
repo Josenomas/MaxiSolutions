@@ -152,6 +152,20 @@ h1, h2, h3, h4, h5, .ms-display {
   text-decoration: none;
 }
 
+.ms-btn-blue {
+  background: #3b82f6;
+  color: #fff;
+  border: 1px solid #3b82f6;
+}
+
+.ms-btn-blue:hover {
+  background: #2563eb;
+  transform: translateY(-3px);
+  color: #fff;
+  box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.5);
+  text-decoration: none;
+}
+
 /* ---------- HERO ---------- */
 .ms-hero {
   position: relative;

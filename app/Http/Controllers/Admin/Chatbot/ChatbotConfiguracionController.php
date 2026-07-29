@@ -18,7 +18,7 @@ class ChatbotConfiguracionController extends Controller
         $config = [
             'limite_gratuito' => Cache::get('chatbot.limite_gratuito', 50),
             'limite_basico' => Cache::get('chatbot.limite_basico', 500),
-            'modelo_default' => Cache::get('chatbot.modelo_default', 'gpt-3.5-turbo'),
+            'modelo_default' => Cache::get('chatbot.modelo_default', 'claude-sonnet-5'),
             'temperatura_default' => Cache::get('chatbot.temperatura_default', 0.7),
             'max_tokens_default' => Cache::get('chatbot.max_tokens_default', 500),
             'system_prompt' => Cache::get('chatbot.system_prompt', 'Eres un asistente virtual útil y amigable.'),

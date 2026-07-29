@@ -57,9 +57,9 @@
                         <label class="form-label">Modelo de IA</label>
                         <select name="modelo_default" class="form-select" required>
                             <optgroup label="Claude (Anthropic) - Activo ✅">
-                                <option value="claude-3-5-sonnet-20241022" {{ $config['modelo_default'] === 'claude-3-5-sonnet-20241022' ? 'selected' : '' }}>Claude 3.5 Sonnet ⭐ (Recomendado)</option>
-                                <option value="claude-3-5-haiku-20241022" {{ $config['modelo_default'] === 'claude-3-5-haiku-20241022' ? 'selected' : '' }}>Claude 3.5 Haiku (Más rápido y económico)</option>
-                                <option value="claude-3-opus-20240229" {{ $config['modelo_default'] === 'claude-3-opus-20240229' ? 'selected' : '' }}>Claude 3 Opus (Máxima calidad)</option>
+                                <option value="claude-sonnet-5" {{ $config['modelo_default'] === 'claude-sonnet-5' ? 'selected' : '' }}>Claude Sonnet 5 ⭐ (Recomendado - Balanceado)</option>
+                                <option value="claude-opus-5" {{ $config['modelo_default'] === 'claude-opus-5' ? 'selected' : '' }}>Claude Opus 5 (Máxima calidad y precisión)</option>
+                                <option value="claude-haiku-4-5-20251001" {{ $config['modelo_default'] === 'claude-haiku-4-5-20251001' ? 'selected' : '' }}>Claude Haiku 4.5 (Más rápido y económico)</option>
                             </optgroup>
                         </select>
                         <small class="form-text text-muted">Modelos de Claude/Anthropic (actualmente integrados con tu API key)</small>

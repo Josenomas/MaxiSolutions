@@ -40,9 +40,9 @@ class SecurityHeaders
             // CSP relajado para chatbot - permite recursos externos necesarios
             $csp = [
                 "default-src 'self'",
-                "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com",
-                "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-                "font-src 'self' data: https://fonts.gstatic.com",
+                "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://static.cloudflareinsights.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com",
+                "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com",
+                "font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com",
                 "img-src 'self' data: https:",
                 "connect-src 'self' https://api.anthropic.com https://hateachistopher.maxisolutions.cl http://hateachistopher.maxisolutions.cl",
                 "frame-ancestors 'none'",

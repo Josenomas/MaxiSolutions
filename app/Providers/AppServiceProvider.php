@@ -26,5 +26,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Solicitud::observe(SolicitudObserver::class);
+
+        // Forzar HTTPS en producción para evitar Mixed Content errors
+        if (app()->environment('production') || request()->isSecure()) {
+            \URL::forceScheme('https');
+        }
     }
 }

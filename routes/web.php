@@ -299,6 +299,23 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
         return redirect()->route('admin.mensajes.show', $usuario)->with('success', 'Mensaje enviado');
     })->name('mensajes.reply')->middleware('throttle:20,1');
 
+    // ========================================
+    // GESTIÓN ADMIN - CHATBOT
+    // ========================================
+    Route::prefix('chatbot')->name('chatbot.')->group(function () {
+        Route::get('/dashboard', [\App\Http\Controllers\Admin\Chatbot\ChatbotDashboardController::class, 'index'])->name('dashboard');
+
+        // Gestión de usuarios del chatbot
+        Route::resource('usuarios', \App\Http\Controllers\Admin\Chatbot\ChatbotUsuariosController::class)->only(['index', 'show', 'update', 'destroy']);
+
+        // Gestión de conversaciones
+        Route::resource('conversaciones', \App\Http\Controllers\Admin\Chatbot\ChatbotConversacionesController::class)->only(['index', 'show', 'destroy']);
+
+        // Configuración global del chatbot
+        Route::get('/configuracion', [\App\Http\Controllers\Admin\Chatbot\ChatbotConfiguracionController::class, 'index'])->name('configuracion');
+        Route::put('/configuracion', [\App\Http\Controllers\Admin\Chatbot\ChatbotConfiguracionController::class, 'update'])->name('configuracion.update');
+    });
+
 });
 
 

@@ -36,7 +36,7 @@ class ClaudeService
         }
 
         // Leer configuración del admin
-        $modelo = Cache::get('chatbot.modelo_default', 'claude-3-haiku-20240307');
+        $modelo = Cache::get('chatbot.modelo_default', 'claude-sonnet-5');
         $temperatura = (float) Cache::get('chatbot.temperatura_default', 0.7);
         $maxTokens = (int) Cache::get('chatbot.max_tokens_default', 4096);
         $systemPrompt = Cache::get('chatbot.system_prompt', 'Eres un asistente virtual útil y amigable.');
@@ -140,7 +140,7 @@ class ClaudeService
                 'anthropic-version' => '2023-06-01',
                 'content-type' => 'application/json',
             ])->timeout(10)->post($this->apiUrl, [
-                'model' => 'claude-3-5-sonnet-20241022',
+                'model' => 'claude-sonnet-5',
                 'max_tokens' => 10,
                 'messages' => [
                     ['role' => 'user', 'content' => 'Hola']

@@ -52,7 +52,8 @@ class ChatbotConfiguracionController extends Controller
         Cache::forever('chatbot.max_tokens_default', $request->max_tokens_default);
         Cache::forever('chatbot.system_prompt', $request->system_prompt);
 
-        if ($request->filled('api_key')) {
+        // Solo guardar API key si NO es el placeholder de bullets
+        if ($request->filled('api_key') && !str_contains($request->api_key, '•')) {
             Cache::forever('chatbot.api_key', $request->api_key);
         }
 

@@ -13,7 +13,8 @@ class ClaudeService
 
     public function __construct()
     {
-        $this->apiKey = Cache::get('chatbot.api_key');
+        // Primero intentar desde cache, luego desde .env
+        $this->apiKey = Cache::get('chatbot.api_key') ?? env('ANTHROPIC_API_KEY');
     }
 
     /**

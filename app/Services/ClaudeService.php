@@ -75,7 +75,17 @@ class ClaudeService
                 $data = $response->json();
 
                 // Extraer respuesta y tokens usados
-                $contenido = $data['content'][0]['text'] ?? 'Error: Respuesta vacía de la API';
+                // Buscar el primer elemento de tipo "text" en el array content
+                $contenido = 'Error: Respuesta vacía de la API';
+                if (isset($data['content']) && is_array($data['content'])) {
+                    foreach ($data['content'] as $item) {
+                        if (isset($item['type']) && $item['type'] === 'text' && isset($item['text'])) {
+                            $contenido = $item['text'];
+                            break;
+                        }
+                    }
+                }
+
                 $tokensUsados = ($data['usage']['input_tokens'] ?? 0) + ($data['usage']['output_tokens'] ?? 0);
 
                 return [

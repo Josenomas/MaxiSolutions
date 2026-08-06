@@ -38,6 +38,33 @@ Route::domain('hateachistopher.maxisolutions.cl')->group(function () {
     });
 });
 
+// ========================================
+// RUTAS SUBDOMINIO CANELA MASANDERÍA
+// ========================================
+Route::domain('canelamasanderia.maxisolutions.cl')->middleware(['auth'])->group(function () {
+    // Dashboard principal
+    Route::get('/', [\App\Http\Controllers\Canela\DashboardController::class, 'index'])->name('canela.dashboard');
+
+    // Productos
+    Route::prefix('productos')->name('canela.productos.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Canela\ProductoController::class, 'index'])->name('index');
+        Route::get('/crear', [\App\Http\Controllers\Canela\ProductoController::class, 'create'])->name('create');
+        Route::post('/', [\App\Http\Controllers\Canela\ProductoController::class, 'store'])->name('store');
+        Route::get('/{producto}/editar', [\App\Http\Controllers\Canela\ProductoController::class, 'edit'])->name('edit');
+        Route::put('/{producto}', [\App\Http\Controllers\Canela\ProductoController::class, 'update'])->name('update');
+        Route::delete('/{producto}', [\App\Http\Controllers\Canela\ProductoController::class, 'destroy'])->name('destroy');
+        Route::post('/{producto}/ajustar-stock', [\App\Http\Controllers\Canela\ProductoController::class, 'ajustarStock'])->name('ajustar-stock');
+    });
+
+    // Ventas
+    Route::prefix('ventas')->name('canela.ventas.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\Canela\VentaController::class, 'index'])->name('index');
+        Route::get('/crear', [\App\Http\Controllers\Canela\VentaController::class, 'create'])->name('create');
+        Route::post('/', [\App\Http\Controllers\Canela\VentaController::class, 'store'])->name('store');
+        Route::get('/{venta}', [\App\Http\Controllers\Canela\VentaController::class, 'show'])->name('show');
+    });
+});
+
 // Rutas públicas (dominio principal)
 Route::get('/', [HomeController::class, 'index'])->name('home');
 

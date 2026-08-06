@@ -5,6 +5,7 @@ namespace App\Services;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
+use App\Models\ChatbotConfiguracion;
 
 class ClaudeService
 {
@@ -13,8 +14,8 @@ class ClaudeService
 
     public function __construct()
     {
-        // Primero intentar desde cache, luego desde .env
-        $this->apiKey = Cache::get('chatbot.api_key') ?? env('ANTHROPIC_API_KEY');
+        // Primero intentar desde base de datos, luego desde .env
+        $this->apiKey = ChatbotConfiguracion::obtener('api_key') ?? env('ANTHROPIC_API_KEY');
     }
 
     /**
@@ -35,11 +36,11 @@ class ClaudeService
             ];
         }
 
-        // Leer configuración del admin
-        $modelo = Cache::get('chatbot.modelo_default', 'claude-sonnet-5');
-        $temperatura = (float) Cache::get('chatbot.temperatura_default', 0.7);
-        $maxTokens = (int) Cache::get('chatbot.max_tokens_default', 4096);
-        $systemPrompt = Cache::get('chatbot.system_prompt', 'Eres un asistente virtual útil y amigable.');
+        // Leer configuración del admin desde base de datos
+        $modelo = ChatbotConfiguracion::obtener('modelo_default', 'claude-sonnet-5');
+        $temperatura = (float) ChatbotConfiguracion::obtener('temperatura_default', 0.7);
+        $maxTokens = (int) ChatbotConfiguracion::obtener('max_tokens_default', 4096);
+        $systemPrompt = ChatbotConfiguracion::obtener('system_prompt', 'Eres un asistente virtual útil y amigable.');
 
         // Construir array de mensajes
         $messages = [];
